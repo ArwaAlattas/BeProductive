@@ -6,3 +6,30 @@
 //
 
 import Foundation
+import Firebase
+struct Record{
+    var id = ""
+    var name = ""
+    var audioUrl = ""
+    var createdAt:Timestamp?
+//    var userId:User
+    var categoryId:Category
+    init(dict:[String:Any],id:String,catogery:Category) {
+        if let name = dict["name"] as? String,
+           let audioUrl = dict["audioUrl"] as? String,
+            let createdAt = dict["createdAt"] as? Timestamp{
+            self.name = name
+            self.audioUrl = audioUrl
+            self.createdAt = createdAt
+        }
+        self.id = id
+        self.categoryId = catogery
+    }
+    
+    
+    
+    
+    
+    
+    
+}

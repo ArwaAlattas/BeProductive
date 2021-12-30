@@ -31,11 +31,41 @@ class HumburgerViewController: UIViewController {
     @IBOutlet weak var userNameLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        userProfileImageView.image = nil
+            gitList()
         // Do any additional setup after loading the view.
+       
     }
-    
-
+    func gitList(){
+        let ref = Firestore.firestore()
+        ref.collection("Lists").order(by: "createdAt", descending: true).addSnapshotListener { snapshot , error  in
+            if let error = error {
+                print("DB ERROR listss",error.localizedDescription)
+            }
+            if let snapshot = snapshot{
+                print("liST CANGES:",snapshot.documentChanges.count)
+                snapshot.documentChanges.forEach { diff in
+                    let listData = diff.document.data()
+                    if let userId = listData["userId"] as? String{
+                        ref.collection("users").document(userId).getDocument { userSnapshot, error in
+                            if let error = error {
+                                print("ERROR list Data",error.localizedDescription)
+                            }
+                            if let userSnapshot = userSnapshot,
+                            let userData = userSnapshot.data(){
+                                let user = User(dict:userData)
+                                DispatchQueue.main.async {
+                                    self.userProfileImageView.loadImageUsingCache(with: user.imageUrl)
+                                    self.userNameLabel.text = user.name
+                                }
+                                  
+                        }
+                    }
+               }
+                 }
+              }
+            }
+    }
     @IBAction func handleLogout(_ sender: Any) {
         do {
             try Auth.auth().signOut()

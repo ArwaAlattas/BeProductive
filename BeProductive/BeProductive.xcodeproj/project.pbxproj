@@ -18,6 +18,8 @@
 		AF3859662779986900FBCAE0 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = AF3859652779986900FBCAE0 /* FirebaseStorage */; };
 		AF55A221277A9C2E000BB436 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF55A220277A9C2E000BB436 /* HomeViewController.swift */; };
 		AF55A223277AA940000BB436 /* HumburgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF55A222277AA940000BB436 /* HumburgerViewController.swift */; };
+		AF5DC897277C0CCC00FFAE6B /* NewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5DC896277C0CCC00FFAE6B /* NewListViewController.swift */; };
+		AF5DC899277C137700FFAE6B /* ListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5DC898277C137700FFAE6B /* ListsCollectionViewCell.swift */; };
 		AFDB5FFE2779B5D500912D90 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDB5FFD2779B5D500912D90 /* User.swift */; };
 		AFDB60002779B5ED00912D90 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDB5FFF2779B5ED00912D90 /* Record.swift */; };
 		AFDB60022779B60500912D90 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDB60012779B60500912D90 /* Category.swift */; };
@@ -29,6 +31,7 @@
 		AFDB60132779E8E800912D90 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = AFDB60152779E8E800912D90 /* Localization.strings */; };
 		AFDB60182779F3A000912D90 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDB60172779F3A000912D90 /* ImageView.swift */; };
 		AFDB601B2779F41600912D90 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDB601A2779F41600912D90 /* Activity.swift */; };
+		AFDC6CA4277C59FF00BE835B /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDC6CA3277C59FF00BE835B /* ListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +45,8 @@
 		AF38595E2779972200FBCAE0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AF55A220277A9C2E000BB436 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AF55A222277AA940000BB436 /* HumburgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumburgerViewController.swift; sourceTree = "<group>"; };
+		AF5DC896277C0CCC00FFAE6B /* NewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListViewController.swift; sourceTree = "<group>"; };
+		AF5DC898277C137700FFAE6B /* ListsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsCollectionViewCell.swift; sourceTree = "<group>"; };
 		AFDB5FFD2779B5D500912D90 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AFDB5FFF2779B5ED00912D90 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		AFDB60012779B60500912D90 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -56,6 +61,7 @@
 		AFDB60162779E8EB00912D90 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localization.strings; sourceTree = "<group>"; };
 		AFDB60172779F3A000912D90 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		AFDB601A2779F41600912D90 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		AFDC6CA3277C59FF00BE835B /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +117,8 @@
 		AF3859672779994800FBCAE0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AF5DC898277C137700FFAE6B /* ListsCollectionViewCell.swift */,
+				AFDC6CA3277C59FF00BE835B /* ListTableViewCell.swift */,
 				AF3859502779953A00FBCAE0 /* Main.storyboard */,
 			);
 			path = View;
@@ -134,6 +142,7 @@
 				AFDB60042779B6D400912D90 /* WelcomeViewController.swift */,
 				AF55A220277A9C2E000BB436 /* HomeViewController.swift */,
 				AF55A222277AA940000BB436 /* HumburgerViewController.swift */,
+				AF5DC896277C0CCC00FFAE6B /* NewListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -238,11 +247,14 @@
 				AFDB60072779B71B00912D90 /* RegisterViewController.swift in Sources */,
 				AF38594D2779953A00FBCAE0 /* SceneDelegate.swift in Sources */,
 				AFDB60092779B77900912D90 /* LoginViewController.swift in Sources */,
+				AF5DC897277C0CCC00FFAE6B /* NewListViewController.swift in Sources */,
 				AFDB60052779B6D400912D90 /* WelcomeViewController.swift in Sources */,
 				AF55A221277A9C2E000BB436 /* HomeViewController.swift in Sources */,
+				AF5DC899277C137700FFAE6B /* ListsCollectionViewCell.swift in Sources */,
 				AFDB60182779F3A000912D90 /* ImageView.swift in Sources */,
 				AFDB60002779B5ED00912D90 /* Record.swift in Sources */,
 				AFDB5FFE2779B5D500912D90 /* User.swift in Sources */,
+				AFDC6CA4277C59FF00BE835B /* ListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
