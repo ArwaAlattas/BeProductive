@@ -34,7 +34,7 @@ class NewListViewController: UIViewController {
     
     @IBAction func saveListAction(_ sender: Any) {
         if let image = newListImageView.image,
-           let imageData = image.jpegData(compressionQuality: 0.75),
+           let imageData = image.jpegData(compressionQuality: 0.25),
            let name = nameOfNewListTextField.text,
             let currentUser = Auth.auth().currentUser {
             Activity.showIndicator(parentView: self.view, childView: activityIndicator)
@@ -58,6 +58,7 @@ class NewListViewController: UIViewController {
                         let ref = db.collection("Lists")
                         if let selectedList = self.selectedList {
                             listData = [
+                                "id": listId,
                                 "userId":selectedList.userId.id,
                                 "name":name,
                                 "imageUrl":url.absoluteString,

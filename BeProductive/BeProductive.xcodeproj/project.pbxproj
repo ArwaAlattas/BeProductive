@@ -7,19 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF19CE4A27821F9100E0535D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF19CE4927821F9100E0535D /* GoogleService-Info.plist */; };
 		AF38594B2779953A00FBCAE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF38594A2779953A00FBCAE0 /* AppDelegate.swift */; };
 		AF38594D2779953A00FBCAE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF38594C2779953A00FBCAE0 /* SceneDelegate.swift */; };
 		AF3859522779953A00FBCAE0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3859502779953A00FBCAE0 /* Main.storyboard */; };
 		AF3859542779953F00FBCAE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF3859532779953F00FBCAE0 /* Assets.xcassets */; };
 		AF3859572779953F00FBCAE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3859552779953F00FBCAE0 /* LaunchScreen.storyboard */; };
-		AF38595F2779972300FBCAE0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF38595E2779972200FBCAE0 /* GoogleService-Info.plist */; };
 		AF3859622779986900FBCAE0 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = AF3859612779986900FBCAE0 /* FirebaseAuth */; };
 		AF3859642779986900FBCAE0 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = AF3859632779986900FBCAE0 /* FirebaseFirestore */; };
 		AF3859662779986900FBCAE0 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = AF3859652779986900FBCAE0 /* FirebaseStorage */; };
+		AF472E5827801D4C00615A1F /* RecordingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF472E5727801D4C00615A1F /* RecordingsViewController.swift */; };
+		AF472E5A2780773500615A1F /* RecordingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF472E592780773500615A1F /* RecordingsTableViewCell.swift */; };
 		AF55A221277A9C2E000BB436 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF55A220277A9C2E000BB436 /* HomeViewController.swift */; };
 		AF55A223277AA940000BB436 /* HumburgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF55A222277AA940000BB436 /* HumburgerViewController.swift */; };
 		AF5DC897277C0CCC00FFAE6B /* NewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5DC896277C0CCC00FFAE6B /* NewListViewController.swift */; };
 		AF5DC899277C137700FFAE6B /* ListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5DC898277C137700FFAE6B /* ListsCollectionViewCell.swift */; };
+		AFC65E2127818D50004E110C /* NewRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC65E2027818D50004E110C /* NewRecordViewController.swift */; };
 		AFDB5FFE2779B5D500912D90 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDB5FFD2779B5D500912D90 /* User.swift */; };
 		AFDB60002779B5ED00912D90 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDB5FFF2779B5ED00912D90 /* Record.swift */; };
 		AFDB60022779B60500912D90 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDB60012779B60500912D90 /* Category.swift */; };
@@ -35,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF19CE4927821F9100E0535D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AF3859472779953A00FBCAE0 /* BeProductive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeProductive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF38594A2779953A00FBCAE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF38594C2779953A00FBCAE0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,11 +46,13 @@
 		AF3859532779953F00FBCAE0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF3859562779953F00FBCAE0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AF3859582779953F00FBCAE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AF38595E2779972200FBCAE0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AF472E5727801D4C00615A1F /* RecordingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsViewController.swift; sourceTree = "<group>"; };
+		AF472E592780773500615A1F /* RecordingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsTableViewCell.swift; sourceTree = "<group>"; };
 		AF55A220277A9C2E000BB436 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AF55A222277AA940000BB436 /* HumburgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumburgerViewController.swift; sourceTree = "<group>"; };
 		AF5DC896277C0CCC00FFAE6B /* NewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListViewController.swift; sourceTree = "<group>"; };
 		AF5DC898277C137700FFAE6B /* ListsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsCollectionViewCell.swift; sourceTree = "<group>"; };
+		AFC65E2027818D50004E110C /* NewRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecordViewController.swift; sourceTree = "<group>"; };
 		AFDB5FFD2779B5D500912D90 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AFDB5FFF2779B5ED00912D90 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		AFDB60012779B60500912D90 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -109,7 +115,7 @@
 				AF3859552779953F00FBCAE0 /* LaunchScreen.storyboard */,
 				AFDB60152779E8E800912D90 /* Localization.strings */,
 				AF3859582779953F00FBCAE0 /* Info.plist */,
-				AF38595E2779972200FBCAE0 /* GoogleService-Info.plist */,
+				AF19CE4927821F9100E0535D /* GoogleService-Info.plist */,
 			);
 			path = BeProductive;
 			sourceTree = "<group>";
@@ -119,6 +125,7 @@
 			children = (
 				AF5DC898277C137700FFAE6B /* ListsCollectionViewCell.swift */,
 				AFDC6CA3277C59FF00BE835B /* ListTableViewCell.swift */,
+				AF472E592780773500615A1F /* RecordingsTableViewCell.swift */,
 				AF3859502779953A00FBCAE0 /* Main.storyboard */,
 			);
 			path = View;
@@ -137,12 +144,14 @@
 		AFDB600A2779B79000912D90 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				AFDB60042779B6D400912D90 /* WelcomeViewController.swift */,
 				AFDB60082779B77900912D90 /* LoginViewController.swift */,
 				AFDB60062779B71B00912D90 /* RegisterViewController.swift */,
-				AFDB60042779B6D400912D90 /* WelcomeViewController.swift */,
 				AF55A220277A9C2E000BB436 /* HomeViewController.swift */,
 				AF55A222277AA940000BB436 /* HumburgerViewController.swift */,
 				AF5DC896277C0CCC00FFAE6B /* NewListViewController.swift */,
+				AF472E5727801D4C00615A1F /* RecordingsViewController.swift */,
+				AFC65E2027818D50004E110C /* NewRecordViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -224,11 +233,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFDB600E2779D43600912D90 /* README.md in Resources */,
+				AF19CE4A27821F9100E0535D /* GoogleService-Info.plist in Resources */,
 				AFDB600C2779D40E00912D90 /* .gitignore in Resources */,
 				AFDB60132779E8E800912D90 /* Localization.strings in Resources */,
 				AF3859572779953F00FBCAE0 /* LaunchScreen.storyboard in Resources */,
 				AF3859542779953F00FBCAE0 /* Assets.xcassets in Resources */,
-				AF38595F2779972300FBCAE0 /* GoogleService-Info.plist in Resources */,
 				AF3859522779953A00FBCAE0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -252,9 +261,12 @@
 				AF55A221277A9C2E000BB436 /* HomeViewController.swift in Sources */,
 				AF5DC899277C137700FFAE6B /* ListsCollectionViewCell.swift in Sources */,
 				AFDB60182779F3A000912D90 /* ImageView.swift in Sources */,
+				AFC65E2127818D50004E110C /* NewRecordViewController.swift in Sources */,
 				AFDB60002779B5ED00912D90 /* Record.swift in Sources */,
 				AFDB5FFE2779B5D500912D90 /* User.swift in Sources */,
 				AFDC6CA4277C59FF00BE835B /* ListTableViewCell.swift in Sources */,
+				AF472E5827801D4C00615A1F /* RecordingsViewController.swift in Sources */,
+				AF472E5A2780773500615A1F /* RecordingsTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

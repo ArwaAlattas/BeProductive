@@ -22,11 +22,12 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
             
         }
     }
+    //  -------------------------------------------------------Burger menu ---------------------------------------------- //
     var humbergerViewController:HumburgerViewController?
     private var isHamburgerMenuShown:Bool = false
     private var beginPoint:CGFloat = 0.0
     private var difference:CGFloat = 0.0
-    
+    //  -------------------------------------------------------Burger menu ---------------------------------------------- //
     
     
     override func viewDidLoad() {
@@ -35,6 +36,7 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
         gitList()
         // Do any additional setup after loading the view.
     }
+    
     func gitList(){
         let ref = Firestore.firestore()
         ref.collection("Lists").order(by: "createdAt", descending: true).addSnapshotListener { snapshot , error  in
@@ -55,7 +57,6 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
                                 }
                                 if let userSnapshot = userSnapshot,
                                 let userData = userSnapshot.data(){
-
                                     let user = User(dict:userData)
                                     let list = Category(dict: listData, id: diff.document.documentID, user: user)
                                     if let currentUser = Auth.auth().currentUser ,
@@ -101,17 +102,18 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
 }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "humbergerSegue"){
-            
             if let controller = segue.destination as? HumburgerViewController{
-                
                 humbergerViewController = controller
                 humbergerViewController?.delegate = self
             }
         }
+        if  let goToRecordingVC = segue.destination as? RecordingsViewController{
+            goToRecordingVC.selectedList = selectedList
+        }
     }
     
     
-    
+    //  -------------------------------------------------------Burger menu ---------------------------------------------- //
     @IBAction func tabpedOnHumbergerBackView(_ sender: Any) {
         hideHamburgerView()
         
@@ -183,6 +185,7 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
         }
        
     }
+                    //  -------------------------------------------------------Burger menu ---------------------------------------------- //
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if (isHamburgerMenuShown)
         {
@@ -211,7 +214,6 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
 }
 extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("jhhttfrdrd",lists)
         return lists.count
     }
     
@@ -230,4 +232,11 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
 //        return 119
 //    }
    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedList = lists[indexPath.row]
+        performSegue(withIdentifier: "goToListOfRecordingsVC", sender: self)
+    }
+    
+    
+    
 }
