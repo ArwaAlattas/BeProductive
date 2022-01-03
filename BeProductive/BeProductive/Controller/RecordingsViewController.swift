@@ -9,6 +9,7 @@ import UIKit
 import AVFoundation
 import Firebase
 class RecordingsViewController: UIViewController,AVAudioRecorderDelegate,AVAudioPlayerDelegate {
+    let activityIndicator = UIActivityIndicatorView()
     var records:[Record] = []
     var selectedRecord:Record?
     @IBOutlet weak var nameOfListLabel: UILabel!
@@ -26,7 +27,7 @@ class RecordingsViewController: UIViewController,AVAudioRecorderDelegate,AVAudio
     var fileName:String = "audioFile.m4a"
     
     var selectedList:Category?
-    var path = 0
+    var urlString = ""
     var selectedIndex = -1
     var isCollapes = false
     var recordings:[Record] = []
@@ -38,16 +39,58 @@ class RecordingsViewController: UIViewController,AVAudioRecorderDelegate,AVAudio
         }
         recordsTabelView.estimatedRowHeight = 183
         recordsTabelView.rowHeight = UITableView.automaticDimension
-        if let selectedRecord = selectedRecord {
-            print("uygyggtgtygtyg")
-            print("I can do it inshallah",selectedRecord.categoryId.id)
-        }
+        getRecording()
           }
-    func gitRecords(){
+    func getRecording(){
+        let ref = Firestore.firestore()
+        guard let userId = Auth.auth().currentUser?.uid,
+        let categoryId = selectedList?.id else {return}
         
-        
+        ref.collection("records").order(by: "createdAt", descending: true).whereField("categoryId", isEqualTo: categoryId).whereField("userId", isEqualTo: userId).addSnapshotListener { snapshot , error  in
+            if let error = error {
+                print("DB ERROR listss",error.localizedDescription)
+            }
+            if let snapshot = snapshot{
+                print("liST CANGES:",snapshot.documentChanges.count)
+                snapshot.documentChanges.forEach { diff in
+                    let listData = diff.document.data()
+                    switch diff.type{
+                    case .added:
+                        let record = Record(dict: listData, id: diff.document.documentID)
+                        self.recordsTabelView.beginUpdates()
+      if snapshot.documentChanges.count != 1 {
+           self.records.append(record)
+         self.recordsTabelView.insertRows(at: [IndexPath(row: self.records.count-1, section: 0)], with: .automatic)
+             }else{
+                self.records.insert(record, at: 0)
+                    self.recordsTabelView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+                     }
+          self.recordsTabelView.endUpdates()
+                        print("ADD",listData["audioUrl"]!)
+                    case .modified:
+                        let recordId = diff.document.documentID
+                        if let currentRecord = self.records.first(where: { $0.id == recordId
+                        }),let updateIndex = self.records.firstIndex(where: { $0.id == recordId }){
+                          let newRecord = Record(dict: listData, id: diff.document.documentID)
+                            self.records[updateIndex] = newRecord
+                            self.recordsTabelView.beginUpdates()
+                            self.recordsTabelView.deleteRows(at: [IndexPath(row: updateIndex, section: 0)], with: .left)
+                            self.recordsTabelView.insertRows(at: [IndexPath(row: updateIndex,section: 0)],with: .left)
+                            self.recordsTabelView.endUpdates()
+                        }
+                    case .removed:
+                        let recordId = diff.document.documentID
+                        if let deletIndex = self.records.firstIndex(where: {$0.id == recordId}){
+                            self.records.remove(at: deletIndex)
+                            self.recordsTabelView.beginUpdates()
+                            self.recordsTabelView.deleteRows(at: [IndexPath(row: deletIndex,section: 0)], with: .automatic)
+                            self.recordsTabelView.endUpdates()
+     }
+     }
     }
-    
+   }
+  }
+ }
     func gitDirec()-> URL {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
        return path[0]
@@ -101,6 +144,8 @@ class RecordingsViewController: UIViewController,AVAudioRecorderDelegate,AVAudio
             uploadSound(audieURL:soundRecorder.url)
             recordingBTN.setTitle("Record", for: .normal)
             print("ygjgfuyg",soundRecorder.url)
+//            recordsTabelView.reloadData()
+            
             //playBTN.isEnabled = false
         }
      
@@ -160,55 +205,133 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recordingCell") as! RecordingsTableViewCell
-       
-//        cell.playRecordButton.addTarget(self, action: #selector(playrecord), for: .touchUpInside)
+        cell.nameOfRecord.text = records[indexPath.row].name
+        cell.playRecordButton.addTarget(self, action: #selector(playrecord), for: .touchUpInside)
+        cell.playRecordButton.tag = indexPath.row
+        //urlString = records[indexPath.row].audioUrl
+        print("Row Number : \(indexPath.row)",urlString)
         return cell
     }
     
-//    @objc func playrecord(sender:UIButton){
-//}
+    @objc func playrecord(sender:UIButton){
+        if let url = URL(string:records[sender.tag].audioUrl){
+            print("My played URL----------------------------------------------------", url)
+            let data = try! Data(contentsOf: url)
+            soundPlayer = try! AVAudioPlayer(data: data)
+            soundPlayer.prepareToPlay()
+            soundPlayer.volume = 1.0
+            soundPlayer.play()
+           
+        }}
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        path = indexPath.row + 1
-        tableView.deselectRow(at: indexPath, animated: true)
-        if selectedIndex == indexPath.row
-        {
-            if isCollapes == false
-            {
-            isCollapes = true
-        }else
-            {
-          isCollapes = false
+    
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         }
-        }else{
-          isCollapes = true
+     
+        
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete"){(action,view,comlectionHandler) in
+            let ref = Firestore.firestore().collection("records")
+            if let selectedList = self.selectedList?.id,
+            let currentUser = Auth.auth().currentUser,
+               let selectedRecord = self.selectedRecord{
+                Activity.showIndicator(parentView: self.view, childView: self.activityIndicator)
+                ref.document(selectedRecord.id).delete { error in
+                    if let error = error {
+                        print("Error in db delete",error)
+                    }else {
+                        // Create a reference to the file to delete
+                        let storageRef = Storage.storage().reference(withPath: "records/\(currentUser.uid)/\(selectedList)/\(selectedRecord.id)")
+                        // Delete the file
+                        storageRef.delete { error in
+                            if let error = error {
+                                print("Error in storage delete",error)
+                            } else {
+                                self.activityIndicator.stopAnimating()
+                            }
+                        }
+                        
+                    }
+                }
+            }
+            self.recordsTabelView.deleteRows(at: [indexPath], with: .automatic)
         }
-        selectedIndex = indexPath.row
-        tableView.reloadRows(at: [indexPath], with: .automatic)
-}
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if self.selectedIndex == indexPath.row && isCollapes == true{
-
-           return 183
-
-        }else{
-
-            return 60
-        }
+        
+        deleteAction.backgroundColor = .systemRed
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
+  
+//    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        <#code#>
+//    }
+    
+    
+    
+    
+    }
+    
 
-}
-
-
-
-
-
-
-
-
-
-
-
+    
+    
+    
+//        guard  let url = URL(string:records[path].audioUrl)
+//             else
+//                {
+//                  print("error to get the mp3 file")
+//                  return
+//                }
+//        print(url)
+//             do{
+//                 try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+//                 try AVAudioSession.sharedInstance().setActive(true)
+//                 soundPlayer = try AVAudioPlayer(contentsOf: url as URL)
+//                 guard let player = soundPlayer
+//                       else
+//                           {
+//                             return
+//                           }
+//                 player.play()
+//              } catch let error {
+//                    print(error.localizedDescription)
+//                       }
+//        let urlstring = "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3"
+//         let url = URL(string: urlstring)
+//         let data = try! Data(contentsOf: url!)
+//         player = try! AVAudioPlayer(data: data)
+//         player.prepareToPlay()
+//         player.volume = 1.0
+//         player.play()
+        
+//      }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+//        tableView.deselectRow(at: indexPath, animated: true)
+//        if selectedIndex == indexPath.row
+//        {
+//            if isCollapes == false
+//            {
+//            isCollapes = true
+//        }else
+//            {
+//          isCollapes = false
+//        }
+//        }else{
+//          isCollapes = true
+//        }
+//        selectedIndex = indexPath.row
+//        tableView.reloadRows(at: [indexPath], with: .automatic)
+//}
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        if self.selectedIndex == indexPath.row && isCollapes == true{
+//
+//           return 183
+//
+//        }else{
+//
+//            return 60
+//        }
+//  }
 
 
 

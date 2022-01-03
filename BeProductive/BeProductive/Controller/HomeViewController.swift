@@ -61,17 +61,17 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
                                     let list = Category(dict: listData, id: diff.document.documentID, user: user)
                                     if let currentUser = Auth.auth().currentUser ,
                                        user.id == currentUser.uid{
-                                    self.listsTableView.beginUpdates()
-                                    if snapshot.documentChanges.count != 1 {
-                                        self.lists.append(list)
-                                        self.listsTableView.insertRows(at: [IndexPath(row: self.lists.count-1, section: 0)], with: .automatic)
-                                    }else{
-                                        self.lists.insert(list, at: 0)
-                                        self.listsTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-                                    }
-                                    
-                                    self.listsTableView.endUpdates()
-                                    }
+                                        self.listsTableView.beginUpdates()
+                                                                            if snapshot.documentChanges.count != 1 {
+                                                                                self.lists.append(list)
+                                                                                self.listsTableView.insertRows(at: [IndexPath(row: self.lists.count-1, section: 0)], with: .automatic)
+                                                                            }else{
+                                                                                self.lists.insert(list, at: 0)
+                                                                                self.listsTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+                                                                            }
+                                                                            
+                                                                            self.listsTableView.endUpdates()
+                                                                            }
                                 }
                             }
                         }

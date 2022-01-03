@@ -12,25 +12,20 @@ struct Record{
     var name = ""
     var audioUrl = ""
     var createdAt:Timestamp?
-   var userId:User
-    var categoryId:Category
-    init(dict:[String:Any],id:String,catogery:Category,user:User) {
+   var userId = ""
+    var categoryId = ""
+    init(dict:[String:Any],id:String) {
         if let name = dict["name"] as? String,
            let audioUrl = dict["audioUrl"] as? String,
+           let userId = dict["userId"] as? String,
+           let categoryId = dict["categoryId"] as? String,
             let createdAt = dict["createdAt"] as? Timestamp{
             self.name = name
             self.audioUrl = audioUrl
             self.createdAt = createdAt
+            self.userId = userId
+            self.categoryId = categoryId
         }
         self.id = id
-        self.categoryId = catogery
-        self.userId = user
-    }
-    
-    
-    
-    
-    
-    
-    
+    }   
 }
