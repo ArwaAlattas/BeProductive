@@ -28,7 +28,40 @@ class HumburgerViewController: UIViewController {
         
     }
     
+    @IBOutlet weak var langsegment: UISegmentedControl!{
+        didSet {
+            if let lang = UserDefaults.standard.string(forKey: "currentLanguage") {
+                switch lang {
+                case "ar":
+                    langsegment.selectedSegmentIndex = 0
+                case "en":
+                    langsegment.selectedSegmentIndex = 1
+                default:
+                    let localLang =  Locale.current.languageCode
+                     if localLang == "ar" {
+                         langsegment.selectedSegmentIndex = 0
+                     }else {
+                         langsegment.selectedSegmentIndex = 1
+                     }
+                  
+                }
+            
+            }else {
+                let localLang =  Locale.current.languageCode
+                 if localLang == "ar" {
+                     langsegment.selectedSegmentIndex = 0
+                 }else{
+                     langsegment.selectedSegmentIndex = 1
+                 }
+            }
+        }
+    }
     @IBOutlet weak var userNameLabel: UILabel!
+    
+    @IBOutlet weak var userEmailLabel: UILabel!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         userProfileImageView.image = nil
@@ -57,6 +90,7 @@ class HumburgerViewController: UIViewController {
                                 DispatchQueue.main.async {
                                     self.userProfileImageView.loadImageUsingCache(with: user.imageUrl)
                                     self.userNameLabel.text = user.name
+                                    self.userEmailLabel.text = user.email
                                 }
                                   
                         }
@@ -83,4 +117,24 @@ class HumburgerViewController: UIViewController {
         self.delegate?.hideHamburgerMenu()
     }
     
+    
+    
+    @IBAction func changeLanguageSegment(_ sender: UISegmentedControl) {
+        if let lang = sender.titleForSegment(at:sender.selectedSegmentIndex)?.lowercased() {
+            UserDefaults.standard.set(lang, forKey: "currentLanguage")
+            Bundle.setLanguage(lang)
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let sceneDelegate = windowScene.delegate as? SceneDelegate {
+                sceneDelegate.window?.rootViewController = storyboard.instantiateInitialViewController()
+            }
+        }
+    }
+      
+}
+
+extension String {
+    var localized: String {
+        return NSLocalizedString(self, tableName: "Localization", bundle: .main, value: self, comment: self)
+    }
 }

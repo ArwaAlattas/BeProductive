@@ -142,7 +142,7 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
             self.leadingConstraintForHumburgerView.constant = 10
             self.view.layoutIfNeeded()
         } completion: { (status) in
-            self.backViewForHumburger.alpha = 0.75
+            self.backViewForHumburger.alpha = 0.90
             self.backViewForHumburger.isHidden = false
             UIView.animate(withDuration: 0.1) {
                 self.leadingConstraintForHumburgerView.constant = 0

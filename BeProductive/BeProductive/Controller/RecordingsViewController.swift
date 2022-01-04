@@ -11,7 +11,8 @@ import Firebase
 class RecordingsViewController: UIViewController {
     let activityIndicator = UIActivityIndicatorView()
     var records:[Record] = []
-    var selectedRecord:Record?
+   var selectedRecord:Record?
+    var selectedList:Category?
     @IBOutlet weak var nameOfListLabel: UILabel!
     @IBOutlet weak var recordsTabelView: UITableView!{
         didSet{
@@ -26,9 +27,7 @@ class RecordingsViewController: UIViewController {
     var soundPlayer:AVAudioPlayer!
     var fileName:String = "audioFile.m4a"
     
-    var selectedList:Category?
-    var urlString = ""
-    var recordings:[Record] = []
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRecorder()
@@ -46,7 +45,6 @@ class RecordingsViewController: UIViewController {
         let ref = Firestore.firestore()
         guard let userId = Auth.auth().currentUser?.uid,
         let categoryId = selectedList?.id else {return}
-        
         ref.collection("records").order(by: "createdAt", descending: true).whereField("categoryId", isEqualTo: categoryId).whereField("userId", isEqualTo: userId).addSnapshotListener { snapshot , error  in
             if let error = error {
                 print("DB ERROR listss",error.localizedDescription)
@@ -106,8 +104,6 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
         cell.nameOfRecord.text = records[indexPath.row].name
         cell.playRecordButton.addTarget(self, action: #selector(playrecord), for: .touchUpInside)
         cell.playRecordButton.tag = indexPath.row
-        //urlString = records[indexPath.row].audioUrl
-        print("Row Number : \(indexPath.row)",urlString)
         return cell
     }
     
@@ -152,10 +148,38 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
                 }
             }
         }
+        let editAction = UIContextualAction(style: .normal, title: "Edit"){(action,view,comlectionHandler) in
+            let alert = UIAlertController(title: "Update", message: "Write new title for record ", preferredStyle: .alert)
+            let textFeild = alert.textFields![0] as UITextField
+            alert.addTextField { (textFeild)  in
+                textFeild.text = self.records[indexPath.row].name
+                textFeild.placeholder = "add new name for record"
+            }
+            alert.addAction(UIAlertAction(title: "Save", style:.destructive, handler: {(action: UIAlertAction) in
+               print("hhh+++++++++++++++++++++++++")
+                    var recordData = [String:Any]()
+                                    let db = Firestore.firestore()
+                                    let ref = db.collection("records")
+                    recordData = ["userId":self.records[indexPath.row].userId ,
+                                  "name":textFeild.text!,
+                                  "audioUrl": self.records[indexPath.row].audioUrl,
+                                  "categoryId":self.records[indexPath.row].categoryId,
+                                  "createdAt":self.records[indexPath.row].createdAt ?? FieldValue.serverTimestamp() ,
+                                                          "updatedAt": FieldValue.serverTimestamp()
+                                            ]
+                                            let recordId = self.records[indexPath.row].id
+                                        ref.document(recordId).setData(recordData) { error in
+                                            if let error = error {
+                                                print("FireStore Error",error.localizedDescription)
+                                            }
+                                        }
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
         
         deleteAction.backgroundColor = .systemRed
-        
-        return UISwipeActionsConfiguration(actions: [deleteAction])
+        editAction.backgroundColor = .systemGray
+        return UISwipeActionsConfiguration(actions: [deleteAction,editAction])
     }
   
     //    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -176,14 +200,15 @@ extension RecordingsViewController:AVAudioRecorderDelegate,AVAudioPlayerDelegate
             soundRecorder.stop()
             uploadSound(audieURL:soundRecorder.url)
             recordingBTN.setTitle("Record", for: .normal)
-            print("ygjgfuyg",soundRecorder.url)
+            print("ygjgfuyg_____________________________________",soundRecorder.url)
         }
      
     }
     
     func uploadSound(audieURL:URL) {
         if let currentUser = Auth.auth().currentUser,
-           let selectedList = selectedList?.id{
+           let selectedList = selectedList?.id
+           {
             var recordId = ""
             if let selectedRecord = selectedRecord {
                 recordId = selectedRecord.id
