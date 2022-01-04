@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 import Firebase
-class RecordingsViewController: UIViewController,AVAudioRecorderDelegate,AVAudioPlayerDelegate {
+class RecordingsViewController: UIViewController {
     let activityIndicator = UIActivityIndicatorView()
     var records:[Record] = []
     var selectedRecord:Record?
@@ -28,19 +28,20 @@ class RecordingsViewController: UIViewController,AVAudioRecorderDelegate,AVAudio
     
     var selectedList:Category?
     var urlString = ""
-    var selectedIndex = -1
-    var isCollapes = false
     var recordings:[Record] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRecorder()
         if let selectedList = selectedList {
             nameOfListLabel.text = selectedList.name
-        }
+                  }
         recordsTabelView.estimatedRowHeight = 183
         recordsTabelView.rowHeight = UITableView.automaticDimension
         getRecording()
-          }
+        
+      }
+    
+    
     func getRecording(){
         let ref = Firestore.firestore()
         guard let userId = Auth.auth().currentUser?.uid,
@@ -91,66 +92,95 @@ class RecordingsViewController: UIViewController,AVAudioRecorderDelegate,AVAudio
    }
   }
  }
-    func gitDirec()-> URL {
-        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-       return path[0]
+
+    
+}
+
+extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return records.count
     }
-    func setupRecorder(){
-        let audiofileName = gitDirec().appendingPathComponent(fileName)
-        let recordSetting = [AVFormatIDKey:kAudioFormatAppleLossless,
-                  AVEncoderAudioQualityKey:AVAudioQuality.max.rawValue,
-                       AVEncoderBitRateKey:320000,
-                           AVSampleRateKey:44100.2] as [String:Any]
-        do{
-            soundRecorder = try AVAudioRecorder(url: audiofileName, settings: recordSetting)
-            soundRecorder.delegate = self
-            soundRecorder.prepareToRecord()
-        }catch{
-           print(error)
-        }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "recordingCell") as! RecordingsTableViewCell
+        cell.nameOfRecord.text = records[indexPath.row].name
+        cell.playRecordButton.addTarget(self, action: #selector(playrecord), for: .touchUpInside)
+        cell.playRecordButton.tag = indexPath.row
+        //urlString = records[indexPath.row].audioUrl
+        print("Row Number : \(indexPath.row)",urlString)
+        return cell
     }
-    func setupPlayer(){
-        let audiofileName = gitDirec().appendingPathComponent(fileName)
-        do{
-          soundPlayer = try AVAudioPlayer(contentsOf: audiofileName)
-            soundPlayer.delegate = self
+    
+    @objc func playrecord(sender:UIButton){
+        if let url = URL(string:records[sender.tag].audioUrl){
+            let data = try! Data(contentsOf: url)
+            soundPlayer = try! AVAudioPlayer(data: data)
             soundPlayer.prepareToPlay()
             soundPlayer.volume = 1.0
-//            print("ygjgfuyg",soundPlayer.url!)
-        } catch{
-            print(error)
+            soundPlayer.play()
+           
+        }}
+    
+//
+//        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+//        }
+     
+        
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete"){(action,view,comlectionHandler) in
+            let ref = Firestore.firestore().collection("records")
+            if let selectedList = self.selectedList?.id,
+            let currentUser = Auth.auth().currentUser{
+                Activity.showIndicator(parentView: self.view, childView: self.activityIndicator)
+                ref.document(self.records[indexPath.row].id).delete { error in
+                    if let error = error {
+                        print("Error in db delete",error)
+                    }else {
+                        // Create a reference to the file to delete
+                        let storageRef = Storage.storage().reference(withPath: "records/\(currentUser.uid)/\(selectedList)/\(self.records[indexPath.row].id)")
+                        
+                        // Delete the file
+                        storageRef.delete { error in
+                            if let error = error {
+                                print("Error in storage delete",error)
+                            } else {
+                                self.activityIndicator.stopAnimating()
+                            }
+                        }
+                        
+                    }
+                }
+            }
         }
+        
+        deleteAction.backgroundColor = .systemRed
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
-    
-    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-//        playBTN.isEnabled = true
+  
+    //    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    //        <#code#>
+    //    }
+   
     }
-    
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-      recordingBTN.isEnabled = true
-//        playBTN.setTitle("Play", for: .normal)
-       
-    }
-    
-    
+   
+
+extension RecordingsViewController:AVAudioRecorderDelegate,AVAudioPlayerDelegate{
     
     @IBAction func startRecordAction(_ sender: Any) {
         if recordingBTN.titleLabel?.text == "Record"{
             soundRecorder.record()
             recordingBTN.setTitle("Stop", for: .normal)
-            //playBTN.isEnabled = false
+           
         }else{
             soundRecorder.stop()
             uploadSound(audieURL:soundRecorder.url)
             recordingBTN.setTitle("Record", for: .normal)
             print("ygjgfuyg",soundRecorder.url)
-//            recordsTabelView.reloadData()
-            
-            //playBTN.isEnabled = false
         }
      
-        
     }
+    
     func uploadSound(audieURL:URL) {
         if let currentUser = Auth.auth().currentUser,
            let selectedList = selectedList?.id{
@@ -196,195 +226,36 @@ class RecordingsViewController: UIViewController,AVAudioRecorderDelegate,AVAudio
             }
         }
     }
+    
+    func gitDirec()-> URL {
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+       return path[0]
+    }
+    func setupRecorder(){
+        let audiofileName = gitDirec().appendingPathComponent(fileName)
+        let recordSetting = [AVFormatIDKey:kAudioFormatAppleLossless,
+                  AVEncoderAudioQualityKey:AVAudioQuality.max.rawValue,
+                       AVEncoderBitRateKey:320000,
+                           AVSampleRateKey:44100.2] as [String:Any]
+        do{
+            soundRecorder = try AVAudioRecorder(url: audiofileName, settings: recordSetting)
+            soundRecorder.delegate = self
+            soundRecorder.prepareToRecord()
+        }catch{
+           print(error)
+        }
+    }
+
+    
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+//        playBTN.isEnabled = true
+//        recordsTabelView.reloadData()
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+      recordingBTN.isEnabled = true
+       
+    }
 }
-
-extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return records.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "recordingCell") as! RecordingsTableViewCell
-        cell.nameOfRecord.text = records[indexPath.row].name
-        cell.playRecordButton.addTarget(self, action: #selector(playrecord), for: .touchUpInside)
-        cell.playRecordButton.tag = indexPath.row
-        //urlString = records[indexPath.row].audioUrl
-        print("Row Number : \(indexPath.row)",urlString)
-        return cell
-    }
-    
-    @objc func playrecord(sender:UIButton){
-        if let url = URL(string:records[sender.tag].audioUrl){
-            print("My played URL----------------------------------------------------", url)
-            let data = try! Data(contentsOf: url)
-            soundPlayer = try! AVAudioPlayer(data: data)
-            soundPlayer.prepareToPlay()
-            soundPlayer.volume = 1.0
-            soundPlayer.play()
-           
-        }}
     
     
-        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        }
-     
-        
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .normal, title: "Delete"){(action,view,comlectionHandler) in
-            let ref = Firestore.firestore().collection("records")
-            if let selectedList = self.selectedList?.id,
-            let currentUser = Auth.auth().currentUser,
-               let selectedRecord = self.selectedRecord{
-                Activity.showIndicator(parentView: self.view, childView: self.activityIndicator)
-                ref.document(selectedRecord.id).delete { error in
-                    if let error = error {
-                        print("Error in db delete",error)
-                    }else {
-                        // Create a reference to the file to delete
-                        let storageRef = Storage.storage().reference(withPath: "records/\(currentUser.uid)/\(selectedList)/\(selectedRecord.id)")
-                        // Delete the file
-                        storageRef.delete { error in
-                            if let error = error {
-                                print("Error in storage delete",error)
-                            } else {
-                                self.activityIndicator.stopAnimating()
-                            }
-                        }
-                        
-                    }
-                }
-            }
-            self.recordsTabelView.deleteRows(at: [indexPath], with: .automatic)
-        }
-        
-        deleteAction.backgroundColor = .systemRed
-        
-        return UISwipeActionsConfiguration(actions: [deleteAction])
-    }
-  
-//    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//        <#code#>
-//    }
-    
-    
-    
-    
-    }
-    
-
-    
-    
-    
-//        guard  let url = URL(string:records[path].audioUrl)
-//             else
-//                {
-//                  print("error to get the mp3 file")
-//                  return
-//                }
-//        print(url)
-//             do{
-//                 try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-//                 try AVAudioSession.sharedInstance().setActive(true)
-//                 soundPlayer = try AVAudioPlayer(contentsOf: url as URL)
-//                 guard let player = soundPlayer
-//                       else
-//                           {
-//                             return
-//                           }
-//                 player.play()
-//              } catch let error {
-//                    print(error.localizedDescription)
-//                       }
-//        let urlstring = "https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3"
-//         let url = URL(string: urlstring)
-//         let data = try! Data(contentsOf: url!)
-//         player = try! AVAudioPlayer(data: data)
-//         player.prepareToPlay()
-//         player.volume = 1.0
-//         player.play()
-        
-//      }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-//        tableView.deselectRow(at: indexPath, animated: true)
-//        if selectedIndex == indexPath.row
-//        {
-//            if isCollapes == false
-//            {
-//            isCollapes = true
-//        }else
-//            {
-//          isCollapes = false
-//        }
-//        }else{
-//          isCollapes = true
-//        }
-//        selectedIndex = indexPath.row
-//        tableView.reloadRows(at: [indexPath], with: .automatic)
-//}
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if self.selectedIndex == indexPath.row && isCollapes == true{
-//
-//           return 183
-//
-//        }else{
-//
-//            return 60
-//        }
-//  }
-
-
-
-
-
-//}
-//let metadata = StorageMetadata()
-//    metadata.contentType = "audio/m4a"
-//    let riversRef = Storage.storage().reference().child("message_voice").child("\(self.getDate()).m4a")
-//    do {
-//        let audioData = try Data(contentsOf: recorder.url)
-//        riversRef.putData(audioData, metadata: metadata){ (data, error) in
-//            if error == nil{
-//                debugPrint("se guardo el audio")
-//                riversRef.downloadURL {url, error in
-//                    guard let downloadURL = url else { return }
-//                    debugPrint("el url descargado", downloadURL)
-//                }
-//            }
-//            else {
-//                if let error = error?.localizedDescription{
-//                    debugPrint("error al cargar imagen", error)
-//                }
-//                else {
-//                    debugPrint("error de codigo")
-//                }
-//            }
-//        }
-//    } catch {
-//        debugPrint(error.localizedDescription)
-//    }
-//        let storageRef = Storage.storage().reference()
-//        let imagesRef = storageRef.child("upload")
-//        let fileName = "/" + "new sound" + ".m4a"
-//       let uploadTask = spaceRef.putFile(localFile, metadata: nil) { metadata, error in
-//            if let error = error {
-//                print(error)
-//            } else {
-//                // Metadata contains file metadata such as size, content-type, and download URL.
-//                let downloadURL = metadata!.downloadURL()
-//            }
-//        }
-
-
-//    func that gets path to directory
-//        func getDirectory()-> URL{
-//            let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-//            let documentDirectory = path[0]
-//            return documentDirectory
-//        }
-//    //   func that display an alert
-//        func displayAlert(title:String,message:String){
-//            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "dismiss", style: .default, handler: nil))
-//            present(self, animated: true, completion: nil)
-//        }

@@ -221,7 +221,7 @@
                                     </attributedString>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="startRecordAction:" destination="xFb-15-Yym" eventType="touchUpInside" id="rBP-Kt-q2V"/>
+                                    <action selector="startRecordAction:" destination="xFb-15-Yym" eventType="touchUpInside" id="2zI-j2-e1G"/>
                                 </connections>
                             </button>
                         </subviews>
