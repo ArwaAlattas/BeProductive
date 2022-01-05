@@ -11,7 +11,7 @@ import Firebase
 class RecordingsViewController: UIViewController {
     let activityIndicator = UIActivityIndicatorView()
     var records:[Record] = []
-   var selectedRecord:Record?
+    var selectedRecord:Record?
     var selectedList:Category?
     @IBOutlet weak var nameOfListLabel: UILabel!
     @IBOutlet weak var recordsTabelView: UITableView!{
@@ -27,50 +27,51 @@ class RecordingsViewController: UIViewController {
     var soundPlayer:AVAudioPlayer!
     var fileName:String = "audioFile.m4a"
     
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRecorder()
         if let selectedList = selectedList {
             nameOfListLabel.text = selectedList.name
-                  }
+        }
         recordsTabelView.estimatedRowHeight = 183
         recordsTabelView.rowHeight = UITableView.automaticDimension
         getRecording()
-        
-      }
+ 
+    }
     
     
     func getRecording(){
         let ref = Firestore.firestore()
         guard let userId = Auth.auth().currentUser?.uid,
-        let categoryId = selectedList?.id else {return}
-        ref.collection("records").order(by: "createdAt", descending: true).whereField("categoryId", isEqualTo: categoryId).whereField("userId", isEqualTo: userId).addSnapshotListener { snapshot , error  in
+              let categoryId = selectedList?.id else {return}
+        ref.collection("records").whereField("categoryId", isEqualTo: categoryId).whereField("userId", isEqualTo: userId).addSnapshotListener { snapshot , error  in
             if let error = error {
                 print("DB ERROR listss",error.localizedDescription)
             }
-            if let snapshot = snapshot{
+            if let snapshot = snapshot {
                 print("liST CANGES:",snapshot.documentChanges.count)
                 snapshot.documentChanges.forEach { diff in
                     let listData = diff.document.data()
                     switch diff.type{
                     case .added:
-                        let record = Record(dict: listData, id: diff.document.documentID)
+                        let record = Record(dict: listData, id:diff.document.documentID)
                         self.recordsTabelView.beginUpdates()
-      if snapshot.documentChanges.count != 1 {
-           self.records.append(record)
-         self.recordsTabelView.insertRows(at: [IndexPath(row: self.records.count-1, section: 0)], with: .automatic)
-             }else{
-                self.records.insert(record, at: 0)
-                    self.recordsTabelView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-                     }
-          self.recordsTabelView.endUpdates()
+                        if snapshot.documentChanges.count != 1 {
+                            self.records.append(record)
+                            self.recordsTabelView.insertRows(at: [IndexPath(row: self.records.count-1, section: 0)], with: .automatic)
+                        }else{
+                            self.records.insert(record, at: 0)
+                            self.recordsTabelView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+                        }
+                        self.recordsTabelView.endUpdates()
                         print("ADD",listData["audioUrl"]!)
+                        
                     case .modified:
                         let recordId = diff.document.documentID
                         if let currentRecord = self.records.first(where: { $0.id == recordId
-                        }),let updateIndex = self.records.firstIndex(where: { $0.id == recordId }){
-                          let newRecord = Record(dict: listData, id: diff.document.documentID)
+                        }), let updateIndex = self.records.firstIndex(where: { $0.id == recordId }){
+                            let newRecord = Record(dict: listData, id: diff.document.documentID)
                             self.records[updateIndex] = newRecord
                             self.recordsTabelView.beginUpdates()
                             self.recordsTabelView.deleteRows(at: [IndexPath(row: updateIndex, section: 0)], with: .left)
@@ -84,15 +85,16 @@ class RecordingsViewController: UIViewController {
                             self.recordsTabelView.beginUpdates()
                             self.recordsTabelView.deleteRows(at: [IndexPath(row: deletIndex,section: 0)], with: .automatic)
                             self.recordsTabelView.endUpdates()
-     }
-     }
+                        }
+                    }
+                }
+            }
+        }
     }
-   }
-  }
- }
-
+  
     
 }
+
 
 extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -114,33 +116,33 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
             soundPlayer.prepareToPlay()
             soundPlayer.volume = 1.0
             soundPlayer.play()
-           
-        }}
-    
-//
-//        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-//        }
-     
+            
+        }
         
+    }
+    
+    //
+    //        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+    //        }
+    
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "Delete"){(action,view,comlectionHandler) in
             let ref = Firestore.firestore().collection("records")
             if let selectedList = self.selectedList?.id,
-            let currentUser = Auth.auth().currentUser{
-                Activity.showIndicator(parentView: self.view, childView: self.activityIndicator)
+               let currentUser = Auth.auth().currentUser{
+                let recordId = self.records[indexPath.row].id
                 ref.document(self.records[indexPath.row].id).delete { error in
                     if let error = error {
                         print("Error in db delete",error)
                     }else {
                         // Create a reference to the file to delete
-                        let storageRef = Storage.storage().reference(withPath: "records/\(currentUser.uid)/\(selectedList)/\(self.records[indexPath.row].id)")
+                        let storageRef = Storage.storage().reference(withPath: "records/\(currentUser.uid)/\(selectedList)/\(recordId)")
                         
                         // Delete the file
                         storageRef.delete { error in
                             if let error = error {
                                 print("Error in storage delete",error)
-                            } else {
-                                self.activityIndicator.stopAnimating()
                             }
                         }
                         
@@ -156,23 +158,23 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
                 textFeild.placeholder = "add new name for record"
             }
             alert.addAction(UIAlertAction(title: "Save", style:.destructive, handler: {(action: UIAlertAction) in
-               print("hhh+++++++++++++++++++++++++")
-                    var recordData = [String:Any]()
-                                    let db = Firestore.firestore()
-                                    let ref = db.collection("records")
-                    recordData = ["userId":self.records[indexPath.row].userId ,
-                                  "name":textFeild.text!,
-                                  "audioUrl": self.records[indexPath.row].audioUrl,
-                                  "categoryId":self.records[indexPath.row].categoryId,
-                                  "createdAt":self.records[indexPath.row].createdAt ?? FieldValue.serverTimestamp() ,
-                                                          "updatedAt": FieldValue.serverTimestamp()
-                                            ]
-                                            let recordId = self.records[indexPath.row].id
-                                        ref.document(recordId).setData(recordData) { error in
-                                            if let error = error {
-                                                print("FireStore Error",error.localizedDescription)
-                                            }
-                                        }
+                print("hhh+++++++++++++++++++++++++")
+                var recordData = [String:Any]()
+                let db = Firestore.firestore()
+                let ref = db.collection("records")
+                recordData = ["userId":self.records[indexPath.row].userId ,
+                              "name":textFeild.text!,
+                              "audioUrl": self.records[indexPath.row].audioUrl,
+                              "categoryId":self.records[indexPath.row].categoryId,
+                              "createdAt":self.records[indexPath.row].createdAt ?? FieldValue.serverTimestamp() ,
+                              "updatedAt": FieldValue.serverTimestamp()
+                ]
+                let recordId = self.records[indexPath.row].id
+                ref.document(recordId).setData(recordData) { error in
+                    if let error = error {
+                        print("FireStore Error",error.localizedDescription)
+                    }
+                }
             }))
             self.present(alert, animated: true, completion: nil)
         }
@@ -181,13 +183,13 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
         editAction.backgroundColor = .systemGray
         return UISwipeActionsConfiguration(actions: [deleteAction,editAction])
     }
-  
+    
     //    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     //        <#code#>
     //    }
-   
-    }
-   
+    
+}
+
 
 extension RecordingsViewController:AVAudioRecorderDelegate,AVAudioPlayerDelegate{
     
@@ -195,26 +197,22 @@ extension RecordingsViewController:AVAudioRecorderDelegate,AVAudioPlayerDelegate
         if recordingBTN.titleLabel?.text == "Record"{
             soundRecorder.record()
             recordingBTN.setTitle("Stop", for: .normal)
-           
+            
         }else{
             soundRecorder.stop()
             uploadSound(audieURL:soundRecorder.url)
             recordingBTN.setTitle("Record", for: .normal)
             print("ygjgfuyg_____________________________________",soundRecorder.url)
         }
-     
+        
     }
     
     func uploadSound(audieURL:URL) {
         if let currentUser = Auth.auth().currentUser,
            let selectedList = selectedList?.id
-           {
-            var recordId = ""
-            if let selectedRecord = selectedRecord {
-                recordId = selectedRecord.id
-            }else{
-                recordId = "\(Firebase.UUID())"
-            }
+        {
+            let  recordId = "\(Firebase.UUID())"
+            
             let metadata = StorageMetadata.init()
             metadata.contentType = "audio/m4a"
             let storageRef = Storage.storage().reference(withPath: "records/\(currentUser.uid)/\(selectedList)/\(recordId)")
@@ -254,7 +252,7 @@ extension RecordingsViewController:AVAudioRecorderDelegate,AVAudioPlayerDelegate
     
     func gitDirec()-> URL {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-       return path[0]
+        return path[0]
     }
     func setupRecorder(){
         let audiofileName = gitDirec().appendingPathComponent(fileName)
@@ -267,20 +265,20 @@ extension RecordingsViewController:AVAudioRecorderDelegate,AVAudioPlayerDelegate
             soundRecorder.delegate = self
             soundRecorder.prepareToRecord()
         }catch{
-           print(error)
+            print(error)
         }
     }
-
+    
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-//        playBTN.isEnabled = true
-//        recordsTabelView.reloadData()
+        //        playBTN.isEnabled = true
+        //        recordsTabelView.reloadData()
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-      recordingBTN.isEnabled = true
-       
+        recordingBTN.isEnabled = true
+        
     }
 }
-    
-    
+
+

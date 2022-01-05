@@ -11,7 +11,16 @@ protocol HamburgerViewControllerDelegate {
     func hideHamburgerMenu()
 }
 class HumburgerViewController: UIViewController {
+    let activityIndicator = UIActivityIndicatorView()
     var delegate : HamburgerViewControllerDelegate?
+    @IBOutlet weak var logoutBTN: UIButton!{
+        didSet{
+            
+            logoutBTN.setTitle("Logout".localized, for: .normal)
+        }
+        
+    }
+    
     @IBOutlet weak var userProfileImageView: UIImageView!{
         didSet{
             userProfileImageView.layer.cornerRadius = 40
@@ -123,10 +132,10 @@ class HumburgerViewController: UIViewController {
         if let lang = sender.titleForSegment(at:sender.selectedSegmentIndex)?.lowercased() {
             UserDefaults.standard.set(lang, forKey: "currentLanguage")
             Bundle.setLanguage(lang)
-            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let sceneDelegate = windowScene.delegate as? SceneDelegate {
-                sceneDelegate.window?.rootViewController = storyboard.instantiateInitialViewController()
+            if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeNavigationController") as? UINavigationController {
+                vc.modalPresentationStyle = .fullScreen
+                Activity.removeIndicator(parentView: self.view, childView: self.activityIndicator)
+                self.present(vc, animated: true, completion: nil)
             }
         }
     }
