@@ -6,4 +6,12 @@
   
 */
 "Get Started" = "Get Started";
+"Login" = "Login";
 "Logout" = "Logout";
+"Sign up" = "Sign up";
+"Sign in" = "Sign in";
+"Register" = "Register";
+"USERNAME" = "USERNAME";
+"E-MAIL" = "E-MAIL";
+"PASSWORD" = "PASSWORD";
+"REPEAT PASSWORD" = "REPEAT PASSWORD";

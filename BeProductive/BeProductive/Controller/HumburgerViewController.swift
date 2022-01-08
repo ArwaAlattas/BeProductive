@@ -42,15 +42,15 @@ class HumburgerViewController: UIViewController {
             if let lang = UserDefaults.standard.string(forKey: "currentLanguage") {
                 switch lang {
                 case "ar":
-                    langsegment.selectedSegmentIndex = 0
-                case "en":
                     langsegment.selectedSegmentIndex = 1
+                case "en":
+                    langsegment.selectedSegmentIndex = 0
                 default:
                     let localLang =  Locale.current.languageCode
                      if localLang == "ar" {
-                         langsegment.selectedSegmentIndex = 0
-                     }else {
                          langsegment.selectedSegmentIndex = 1
+                     }else {
+                         langsegment.selectedSegmentIndex = 0
                      }
                   
                 }
@@ -58,9 +58,9 @@ class HumburgerViewController: UIViewController {
             }else {
                 let localLang =  Locale.current.languageCode
                  if localLang == "ar" {
-                     langsegment.selectedSegmentIndex = 0
-                 }else{
                      langsegment.selectedSegmentIndex = 1
+                 }else{
+                     langsegment.selectedSegmentIndex = 0
                  }
             }
         }

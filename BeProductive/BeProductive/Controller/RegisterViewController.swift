@@ -10,6 +10,20 @@ import Firebase
 class RegisterViewController: UIViewController {
     let imagePickerController = UIImagePickerController()
     var activityIndicator = UIActivityIndicatorView()
+    @IBOutlet weak var signupLabel: UILabel!{
+        didSet{
+            signupLabel.text = "Sign up".localized
+            
+        }
+    }
+    
+    @IBOutlet weak var registerBTN: UIButton!{
+        didSet{
+            
+            registerBTN.setTitle("Register".localized, for: .normal)
+        }
+        
+    }
     @IBOutlet weak var userImageView: UIImageView!{
     didSet{
         userImageView.layer.borderColor = UIColor.systemBackground.cgColor
@@ -20,16 +34,32 @@ class RegisterViewController: UIViewController {
         let tabGesture = UITapGestureRecognizer(target: self, action: #selector(selectImage))
         userImageView.addGestureRecognizer(tabGesture)
     }}
-    @IBOutlet weak var userNameTextField: UITextField!
-    @IBOutlet weak var userEmailTextField: UITextField!
+    @IBOutlet weak var userNameTextField: UITextField!{
+        didSet{
+            userNameTextField.placeholder = "USERNAME".localized
+            userNameTextField.layer.cornerRadius = 25
+          
+        }
+        
+    }
+    @IBOutlet weak var userEmailTextField: UITextField!{
+        didSet{
+            userEmailTextField.placeholder = "E-MAIL".localized
+            userEmailTextField.layer.cornerRadius = 10
+        }
+    }
     @IBOutlet weak var userPasswordTextField: UITextField!{
         didSet{
             userPasswordTextField.isSecureTextEntry = true
+            userPasswordTextField.placeholder = "PASSWORD".localized
+            userPasswordTextField.layer.cornerRadius = 10
         }
     }
     @IBOutlet weak var confirmPasswordTextField: UITextField!{
         didSet{
             confirmPasswordTextField.isSecureTextEntry = true
+            confirmPasswordTextField.placeholder = "REPEAT PASSWORD".localized
+            confirmPasswordTextField.layer.cornerRadius = 10
         }
     }
     

@@ -236,7 +236,36 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
         selectedList = lists[indexPath.row]
         performSegue(withIdentifier: "goToListOfRecordingsVC", sender: self)
     }
-    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete"){(action,view,comlectionHandler) in
+            let ref = Firestore.firestore().collection("Lists")
+//            let ref2 = Firestore.firestore().collection("records").whereField("categoryId", isEqualTo: self.lists[indexPath.row].id)
+            if let currentUser = Auth.auth().currentUser{
+                let listId = self.lists[indexPath.row].id
+                ref.document(self.lists[indexPath.row].id).delete { error in
+                    if let error = error {
+                        print("Error in db delete",error)
+                    }else {
+                        // Create a reference to the file to delete
+                        let storageRef = Storage.storage().reference(withPath: "lists/\(currentUser.uid)/\(listId)")
+                        
+                        // Delete the file
+                        storageRef.delete { error in
+                            if let error = error {
+                                print("Error in storage delete",error)
+                            }
+                        }
+                        
+                    }
+                }
+            }
+            
+        }
+        
+        deleteAction.backgroundColor = .systemRed
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+        
+    }
     
     
 }

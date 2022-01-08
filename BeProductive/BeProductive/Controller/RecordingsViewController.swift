@@ -22,7 +22,6 @@ class RecordingsViewController: UIViewController {
     }
     @IBOutlet weak var recordingBTN: UIButton!
     
-    
     var soundRecorder:AVAudioRecorder!
     var soundPlayer:AVAudioPlayer!
     var fileName:String = "audioFile.m4a"
@@ -59,10 +58,10 @@ class RecordingsViewController: UIViewController {
                         self.recordsTabelView.beginUpdates()
                         if snapshot.documentChanges.count != 1 {
                             self.records.append(record)
-                            self.recordsTabelView.insertRows(at: [IndexPath(row: self.records.count-1, section: 0)], with: .automatic)
+                            self.recordsTabelView.insertRows(at: [IndexPath(row: self.records.count-1, section: 0)], with: .none)
                         }else{
                             self.records.insert(record, at: 0)
-                            self.recordsTabelView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+                            self.recordsTabelView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .none)
                         }
                         self.recordsTabelView.endUpdates()
                         print("ADD",listData["audioUrl"]!)
@@ -74,8 +73,8 @@ class RecordingsViewController: UIViewController {
                             let newRecord = Record(dict: listData, id: diff.document.documentID)
                             self.records[updateIndex] = newRecord
                             self.recordsTabelView.beginUpdates()
-                            self.recordsTabelView.deleteRows(at: [IndexPath(row: updateIndex, section: 0)], with: .left)
-                            self.recordsTabelView.insertRows(at: [IndexPath(row: updateIndex,section: 0)],with: .left)
+                            self.recordsTabelView.deleteRows(at: [IndexPath(row: updateIndex, section: 0)], with: .none)
+                            self.recordsTabelView.insertRows(at: [IndexPath(row: updateIndex,section: 0)],with: .none)
                             self.recordsTabelView.endUpdates()
                         }
                     case .removed:
@@ -83,7 +82,7 @@ class RecordingsViewController: UIViewController {
                         if let deletIndex = self.records.firstIndex(where: {$0.id == recordId}){
                             self.records.remove(at: deletIndex)
                             self.recordsTabelView.beginUpdates()
-                            self.recordsTabelView.deleteRows(at: [IndexPath(row: deletIndex,section: 0)], with: .automatic)
+                            self.recordsTabelView.deleteRows(at: [IndexPath(row: deletIndex,section: 0)], with: .none)
                             self.recordsTabelView.endUpdates()
                         }
                     }
@@ -94,8 +93,6 @@ class RecordingsViewController: UIViewController {
   
     
 }
-
-
 extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return records.count
@@ -152,13 +149,13 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
         }
         let editAction = UIContextualAction(style: .normal, title: "Edit"){(action,view,comlectionHandler) in
             let alert = UIAlertController(title: "Update", message: "Write new title for record ", preferredStyle: .alert)
-            let textFeild = alert.textFields![0] as UITextField
-            alert.addTextField { (textFeild)  in
+           
+            alert.addTextField { (textFeild:UITextField)  in
                 textFeild.text = self.records[indexPath.row].name
                 textFeild.placeholder = "add new name for record"
             }
+            let textFeild = alert.textFields![0]
             alert.addAction(UIAlertAction(title: "Save", style:.destructive, handler: {(action: UIAlertAction) in
-                print("hhh+++++++++++++++++++++++++")
                 var recordData = [String:Any]()
                 let db = Firestore.firestore()
                 let ref = db.collection("records")
@@ -184,27 +181,21 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
         return UISwipeActionsConfiguration(actions: [deleteAction,editAction])
     }
     
-    //    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    //        <#code#>
-    //    }
-    
+  
 }
 
 
 extension RecordingsViewController:AVAudioRecorderDelegate,AVAudioPlayerDelegate{
     
     @IBAction func startRecordAction(_ sender: Any) {
-        if recordingBTN.titleLabel?.text == "Record"{
+        if recordingBTN.image(for: .normal) == UIImage(systemName: "mic.fill"){
             soundRecorder.record()
-            recordingBTN.setTitle("Stop", for: .normal)
-            
-        }else{
+            recordingBTN.setImage(UIImage(systemName: "record.circle"), for: .normal)
+         }else{
             soundRecorder.stop()
             uploadSound(audieURL:soundRecorder.url)
-            recordingBTN.setTitle("Record", for: .normal)
-            print("ygjgfuyg_____________________________________",soundRecorder.url)
+             recordingBTN.setImage(UIImage(systemName: "mic.fill"), for: .normal)
         }
-        
     }
     
     func uploadSound(audieURL:URL) {
