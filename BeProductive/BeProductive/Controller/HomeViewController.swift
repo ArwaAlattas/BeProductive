@@ -237,7 +237,7 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
         performSegue(withIdentifier: "goToListOfRecordingsVC", sender: self)
     }
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .normal, title: "Delete"){(action,view,comlectionHandler) in
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete".localized){(action,view,comlectionHandler) in
             let ref = Firestore.firestore().collection("Lists")
 //            let ref2 = Firestore.firestore().collection("records").whereField("categoryId", isEqualTo: self.lists[indexPath.row].id)
             if let currentUser = Auth.auth().currentUser{

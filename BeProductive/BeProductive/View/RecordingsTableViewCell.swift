@@ -12,6 +12,8 @@ class RecordingsTableViewCell: UITableViewCell {
     @IBOutlet weak var nameOfRecord: UILabel!
    
     @IBOutlet weak var playRecordButton: UIButton!
+  
+    @IBOutlet weak var completeBTN: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

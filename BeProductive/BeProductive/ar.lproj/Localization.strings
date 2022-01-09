@@ -15,3 +15,25 @@
 "E-MAIL" = "البريد الإلكتروني";
 "PASSWORD" = "كلمة المرور";
 "REPEAT PASSWORD" = "تأكيد كلمة المرور";
+"newNameForYourList" = "إسم جديد لقائمتك";
+"Today" = "اليوم";
+"Tomorrow" = "غدا";
+"Studing" = "المذاكرة";
+"Someday" = "يوم ما";
+"Comfortable task" = "مهمات مريحة";
+"Works" = "العمل";
+"Cleaning" = "التنظيف";
+"Communications" = "التواصل";
+"Shopping" = "التسوق";
+"Travlings" = "الرحلات";
+"Workouts" = "التمارين";
+"Special days" = "ايام خاصة";
+"Events" = "الأحداث";
+"Any Tasks" = "مهمات غير محددة";
+"save" = "حفظ";
+"back" = "رجوع";
+"Delete" = "حذف";
+"Edit" = "تعديل" ;
+"Update" = "تحديث ";
+"Write new title for record " = "اكتب عنوان جديد للتسجيل";
+

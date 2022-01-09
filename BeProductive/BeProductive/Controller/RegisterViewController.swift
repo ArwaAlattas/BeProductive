@@ -36,36 +36,42 @@ class RegisterViewController: UIViewController {
     }}
     @IBOutlet weak var userNameTextField: UITextField!{
         didSet{
-            userNameTextField.placeholder = "USERNAME".localized
+//            userNameTextField.placeholder = "USERNAME".localized
+            userNameTextField.attributedPlaceholder = NSAttributedString(string: "USERNAME".localized, attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray])
             userNameTextField.layer.cornerRadius = 25
-          
+            userNameTextField.delegate = self
         }
         
     }
     @IBOutlet weak var userEmailTextField: UITextField!{
         didSet{
-            userEmailTextField.placeholder = "E-MAIL".localized
+//            userEmailTextField.placeholder = "E-MAIL".localized
+            userEmailTextField.attributedPlaceholder = NSAttributedString(string: "E-MAIL".localized, attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray])
             userEmailTextField.layer.cornerRadius = 10
+            userEmailTextField.delegate = self
         }
     }
     @IBOutlet weak var userPasswordTextField: UITextField!{
         didSet{
             userPasswordTextField.isSecureTextEntry = true
-            userPasswordTextField.placeholder = "PASSWORD".localized
+//            userPasswordTextField.placeholder = "PASSWORD".localized
+            userPasswordTextField.attributedPlaceholder = NSAttributedString(string: "PASSWORD".localized, attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray])
             userPasswordTextField.layer.cornerRadius = 10
+            userPasswordTextField.delegate = self
         }
     }
     @IBOutlet weak var confirmPasswordTextField: UITextField!{
         didSet{
             confirmPasswordTextField.isSecureTextEntry = true
-            confirmPasswordTextField.placeholder = "REPEAT PASSWORD".localized
+//            confirmPasswordTextField.placeholder = "REPEAT PASSWORD".localized
+            confirmPasswordTextField.attributedPlaceholder = NSAttributedString(string: "REPEAT PASSWORD".localized, attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray])
             confirmPasswordTextField.layer.cornerRadius = 10
+            confirmPasswordTextField.delegate = self
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         imagePickerController.delegate = self
     }
@@ -185,4 +191,10 @@ extension RegisterViewController:UIImagePickerControllerDelegate,UINavigationCon
         picker.dismiss(animated: true, completion: nil)
     }
     
+}
+extension RegisterViewController:UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

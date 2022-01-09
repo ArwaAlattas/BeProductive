@@ -23,18 +23,21 @@ class LoginViewController: UIViewController {
     }
     @IBOutlet weak var userEmailTextField: UITextField!{
         didSet{
-            userEmailTextField.placeholder = "E-MAIL".localized
+            userEmailTextField.attributedPlaceholder = NSAttributedString(string: "E-MAIL".localized, attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray])
+            userEmailTextField.delegate = self
         }
     }
     @IBOutlet weak var userPasswordTextField: UITextField!{
         didSet{
-            userPasswordTextField.placeholder = "PASSWORD".localized
+//            userPasswordTextField.placeholder = "PASSWORD".localized
+            userPasswordTextField.attributedPlaceholder = NSAttributedString(string: "PASSWORD".localized, attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray])
+            userPasswordTextField.delegate = self
+            userPasswordTextField.isSecureTextEntry = true
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
     
@@ -68,4 +71,10 @@ class LoginViewController: UIViewController {
     
 
 
+}
+extension LoginViewController:UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

@@ -12,9 +12,15 @@ class NewListViewController: UIViewController {
     var selectedListImage:UIImage?
     var activityIndicator = UIActivityIndicatorView()
     @IBOutlet weak var newListImageView: UIImageView!
+    @IBOutlet weak var saveBTN: UIButton!{
+        didSet{
+            saveBTN.setTitle("save".localized, for: .normal)
+        }
+    }
     @IBOutlet weak var nameOfNewListTextField: UITextField!{
         didSet{
             nameOfNewListTextField.delegate = self
+            nameOfNewListTextField.attributedPlaceholder = NSAttributedString(string: "newNameForYourList".localized, attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray])
         }
     }
     @IBOutlet weak var exampleListCollectionView: UICollectionView!{
@@ -23,12 +29,12 @@ class NewListViewController: UIViewController {
             exampleListCollectionView.dataSource = self
         }
     }
-    var namesOfLists = ["Today","Tomorrow","Someday","Up coming","Events","Tasks"]
-    var imagesOfLists = ["sun","sunset","somedayy","upcoming","events","tasks"]
+    var namesOfLists = ["Today".localized,"Tomorrow".localized,"Studing".localized,"Someday".localized,"Comfortable task".localized,"Works".localized,"Cleaning".localized,"Communications".localized,"Shopping".localized,"Travlings".localized,"Workouts".localized,"Special days".localized,"Events".localized,"Any Tasks".localized]
+    var imagesOfLists = ["sun","sunset","book","upcoming","praying","work","cleaning","communication","shopping","travel","workout","specialday","events","tasks"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+//        navigationItem.backBarButtonItem = UIBarButtonItem(title: "back".localized, style: .plain, target: nil, action: nil)
         // Do any additional setup after loading the view.
     }
     
@@ -109,7 +115,7 @@ extension NewListViewController:UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.1
+        return 1
     }
    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -118,15 +124,10 @@ extension NewListViewController:UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     
-    
-    
 }
 extension NewListViewController:UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
-    
-    
 }

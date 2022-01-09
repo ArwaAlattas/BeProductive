@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 import Firebase
-class RecordingsViewController: UIViewController {
+class RecordingsViewController: UIViewController,UITextFieldDelegate {
     let activityIndicator = UIActivityIndicatorView()
     var records:[Record] = []
     var selectedRecord:Record?
@@ -25,7 +25,7 @@ class RecordingsViewController: UIViewController {
     var soundRecorder:AVAudioRecorder!
     var soundPlayer:AVAudioPlayer!
     var fileName:String = "audioFile.m4a"
-    
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class RecordingsViewController: UIViewController {
         recordsTabelView.estimatedRowHeight = 183
         recordsTabelView.rowHeight = UITableView.automaticDimension
         getRecording()
- 
+       
     }
     
     
@@ -74,7 +74,7 @@ class RecordingsViewController: UIViewController {
                             self.records[updateIndex] = newRecord
                             self.recordsTabelView.beginUpdates()
                             self.recordsTabelView.deleteRows(at: [IndexPath(row: updateIndex, section: 0)], with: .none)
-                            self.recordsTabelView.insertRows(at: [IndexPath(row: updateIndex,section: 0)],with: .none)
+                            self.recordsTabelView.insertRows(at: [IndexPath(row: updateIndex,section: 0)],with: .fade)
                             self.recordsTabelView.endUpdates()
                         }
                     case .removed:
@@ -89,10 +89,13 @@ class RecordingsViewController: UIViewController {
                 }
             }
         }
-    }
-  
-    
+    }   
 }
+
+
+                //**************************************************************************//
+
+
 extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return records.count
@@ -103,6 +106,13 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
         cell.nameOfRecord.text = records[indexPath.row].name
         cell.playRecordButton.addTarget(self, action: #selector(playrecord), for: .touchUpInside)
         cell.playRecordButton.tag = indexPath.row
+        if records[indexPath.row].state == true{
+            cell.completeBTN.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
+        }else{
+            cell.completeBTN.setImage(UIImage(systemName:"circle"), for: .normal)
+        }
+        cell.completeBTN .addTarget(self, action: #selector(completedAction), for: .touchUpInside)
+     cell.completeBTN.tag = indexPath.row
         return cell
     }
     
@@ -113,18 +123,48 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
             soundPlayer.prepareToPlay()
             soundPlayer.volume = 1.0
             soundPlayer.play()
-            
         }
-        
     }
-    
-    //
-    //        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-    //        }
-    
-    
+    @objc func completedAction(sender:UIButton){
+        var recordData = [String:Any]()
+        let db = Firestore.firestore()
+        let ref = db.collection("records")
+        if sender.imageView?.image == UIImage(systemName:"circle"){
+            sender.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
+            recordData = ["userId":self.records[sender.tag].userId ,
+                          "name":self.records[sender.tag].name ,
+                          "audioUrl": self.records[sender.tag].audioUrl,
+                          "categoryId":self.records[sender.tag].categoryId,
+                          "createdAt":self.records[sender.tag].createdAt ?? FieldValue.serverTimestamp() ,
+                          "updatedAt": FieldValue.serverTimestamp(),
+                          "state" : true
+            ]
+            let recordId = self.records[sender.tag].id
+            ref.document(recordId).setData(recordData) { error in
+                if let error = error {
+                    print("FireStore Error",error.localizedDescription)
+                }
+            }
+        }else{
+            sender.setImage(UIImage(systemName: "circle"), for: .normal)
+            recordData = ["userId":self.records[sender.tag].userId ,
+                          "name":self.records[sender.tag].name ,
+                          "audioUrl": self.records[sender.tag].audioUrl,
+                          "categoryId":self.records[sender.tag].categoryId,
+                          "createdAt":self.records[sender.tag].createdAt ?? FieldValue.serverTimestamp() ,
+                          "updatedAt": FieldValue.serverTimestamp(),
+                          "state" : false
+            ]
+            let recordId = self.records[sender.tag].id
+            ref.document(recordId).setData(recordData) { error in
+                if let error = error {
+                    print("FireStore Error",error.localizedDescription)
+                }
+            }
+        }
+    }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .normal, title: "Delete"){(action,view,comlectionHandler) in
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete".localized){(action,view,comlectionHandler) in
             let ref = Firestore.firestore().collection("records")
             if let selectedList = self.selectedList?.id,
                let currentUser = Auth.auth().currentUser{
@@ -142,17 +182,16 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
                                 print("Error in storage delete",error)
                             }
                         }
-                        
                     }
                 }
             }
         }
-        let editAction = UIContextualAction(style: .normal, title: "Edit"){(action,view,comlectionHandler) in
-            let alert = UIAlertController(title: "Update", message: "Write new title for record ", preferredStyle: .alert)
+        let editAction = UIContextualAction(style: .normal, title: "Edit".localized){(action,view,comlectionHandler) in
+            let alert = UIAlertController(title: "Update".localized, message: "Write new title for record ".localized, preferredStyle: .alert)
            
             alert.addTextField { (textFeild:UITextField)  in
                 textFeild.text = self.records[indexPath.row].name
-                textFeild.placeholder = "add new name for record"
+               
             }
             let textFeild = alert.textFields![0]
             alert.addAction(UIAlertAction(title: "Save", style:.destructive, handler: {(action: UIAlertAction) in
@@ -164,7 +203,8 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
                               "audioUrl": self.records[indexPath.row].audioUrl,
                               "categoryId":self.records[indexPath.row].categoryId,
                               "createdAt":self.records[indexPath.row].createdAt ?? FieldValue.serverTimestamp() ,
-                              "updatedAt": FieldValue.serverTimestamp()
+                              "updatedAt": FieldValue.serverTimestamp(),
+                              "state" : false
                 ]
                 let recordId = self.records[indexPath.row].id
                 ref.document(recordId).setData(recordData) { error in
@@ -175,22 +215,23 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
             }))
             self.present(alert, animated: true, completion: nil)
         }
-        
         deleteAction.backgroundColor = .systemRed
         editAction.backgroundColor = .systemGray
         return UISwipeActionsConfiguration(actions: [deleteAction,editAction])
     }
-    
-  
 }
+
+                 //**************************************************************************//
+
 
 
 extension RecordingsViewController:AVAudioRecorderDelegate,AVAudioPlayerDelegate{
     
     @IBAction func startRecordAction(_ sender: Any) {
-        if recordingBTN.image(for: .normal) == UIImage(systemName: "mic.fill"){
-            soundRecorder.record()
+        
+        if recordingBTN.imageView?.image == UIImage(systemName: "mic.fill"){
             recordingBTN.setImage(UIImage(systemName: "record.circle"), for: .normal)
+            soundRecorder.record()
          }else{
             soundRecorder.stop()
             uploadSound(audieURL:soundRecorder.url)
@@ -224,7 +265,8 @@ extension RecordingsViewController:AVAudioRecorderDelegate,AVAudioPlayerDelegate
                                               "audioUrl": url.absoluteString,
                                               "categoryId":selectedList.id,
                                               "createdAt":selectedList.createdAt ?? FieldValue.serverTimestamp() ,
-                                              "updatedAt": FieldValue.serverTimestamp()
+                                              "updatedAt": FieldValue.serverTimestamp(),
+                                              "state" : false
                                 ]
                             }
                             ref.document(recordId).setData(recordData) { error in

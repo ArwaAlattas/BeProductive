@@ -39,6 +39,7 @@ class HumburgerViewController: UIViewController {
     
     @IBOutlet weak var langsegment: UISegmentedControl!{
         didSet {
+            langsegment.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.systemGray6], for: .normal)
             if let lang = UserDefaults.standard.string(forKey: "currentLanguage") {
                 switch lang {
                 case "ar":
@@ -73,6 +74,7 @@ class HumburgerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         userProfileImageView.image = nil
             gitList()
         // Do any additional setup after loading the view.
@@ -130,6 +132,11 @@ class HumburgerViewController: UIViewController {
     
     @IBAction func changeLanguageSegment(_ sender: UISegmentedControl) {
         if let lang = sender.titleForSegment(at:sender.selectedSegmentIndex)?.lowercased() {
+        if lang == "ar" {
+            UIView.appearance().semanticContentAttribute = .forceRightToLeft
+        }else {
+            UIView.appearance().semanticContentAttribute = .forceLeftToRight
+            }
             UserDefaults.standard.set(lang, forKey: "currentLanguage")
             Bundle.setLanguage(lang)
             if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeNavigationController") as? UINavigationController {
