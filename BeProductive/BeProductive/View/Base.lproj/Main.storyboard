@@ -25,58 +25,54 @@
                                     <constraint firstAttribute="width" constant="375" id="zz4-Bo-Ti1"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b1p-1L-iUJ">
-                                <rect key="frame" x="209" y="572" width="150" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="AkI-JO-faM"/>
-                                    <constraint firstAttribute="height" constant="50" id="aqt-7J-jlf"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Log in" cornerStyle="capsule">
-                                    <backgroundConfiguration key="background">
-                                        <color key="backgroundColor" name="registerAndLoginColor"/>
-                                        <color key="strokeColor" name="registerAndLoginColor"/>
-                                    </backgroundConfiguration>
-                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <segue destination="XEX-EH-f0x" kind="show" id="fnn-Bb-GJO"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQF-hH-bLm">
-                                <rect key="frame" x="134" y="502" width="150" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="ASp-Bb-LN9"/>
-                                    <constraint firstAttribute="width" constant="150" id="lJf-bF-hlF"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Get started" cornerStyle="capsule">
-                                    <backgroundConfiguration key="background">
-                                        <color key="backgroundColor" name="registerAndLoginColor"/>
-                                        <color key="strokeColor" name="registerAndLoginColor"/>
-                                    </backgroundConfiguration>
-                                    <fontDescription key="titleFontDescription" type="system" pointSize="15"/>
-                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <segue destination="uGT-6x-cP3" kind="show" id="5aJ-Ze-OeV"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="NsK-tp-nXQ">
+                                <rect key="frame" x="117" y="535" width="140" height="84"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQF-hH-bLm">
+                                        <rect key="frame" x="0.0" y="0.0" width="140" height="32"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Get started" cornerStyle="capsule">
+                                            <backgroundConfiguration key="background">
+                                                <color key="backgroundColor" name="registerAndLoginColor"/>
+                                                <color key="strokeColor" name="registerAndLoginColor"/>
+                                            </backgroundConfiguration>
+                                            <fontDescription key="titleFontDescription" type="system" pointSize="15"/>
+                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <segue destination="uGT-6x-cP3" kind="show" id="5aJ-Ze-OeV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b1p-1L-iUJ">
+                                        <rect key="frame" x="0.0" y="52" width="140" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="tt4-iD-u5G"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Log in" cornerStyle="capsule">
+                                            <backgroundConfiguration key="background">
+                                                <color key="backgroundColor" name="registerAndLoginColor"/>
+                                                <color key="strokeColor" name="registerAndLoginColor"/>
+                                            </backgroundConfiguration>
+                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <segue destination="XEX-EH-f0x" kind="show" id="fnn-Bb-GJO"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" name="welcomeBackgroundColor"/>
+                        <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="b1p-1L-iUJ" secondAttribute="trailing" constant="16" id="5fe-Ua-sNt"/>
-                            <constraint firstItem="JQF-hH-bLm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="134" id="Cb4-g1-PeQ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JQF-hH-bLm" secondAttribute="trailing" constant="91" id="DUn-5k-K9J"/>
-                            <constraint firstItem="b1p-1L-iUJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="209" id="Jbx-R8-E88"/>
-                            <constraint firstItem="JQF-hH-bLm" firstAttribute="top" secondItem="nxK-JQ-caG" secondAttribute="bottom" constant="56" id="QEm-TS-Ub7"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="b1p-1L-iUJ" secondAttribute="bottom" constant="45" id="R5d-2W-TiT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NsK-tp-nXQ" secondAttribute="trailing" constant="118" id="E8d-Cr-Rkp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="NsK-tp-nXQ" secondAttribute="bottom" constant="48" id="FIZ-Ci-bQy"/>
                             <constraint firstItem="nxK-JQ-caG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="V9K-6N-81K"/>
                             <constraint firstItem="nxK-JQ-caG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="WyY-9j-UET"/>
+                            <constraint firstItem="NsK-tp-nXQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="117" id="Zt6-Ab-tUv"/>
+                            <constraint firstItem="NsK-tp-nXQ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="nxK-JQ-caG" secondAttribute="bottom" constant="89" id="aaj-a3-aMk"/>
                             <constraint firstItem="nxK-JQ-caG" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="gvP-4L-jen"/>
-                            <constraint firstItem="b1p-1L-iUJ" firstAttribute="top" secondItem="JQF-hH-bLm" secondAttribute="bottom" constant="20" id="wMi-i5-uNN"/>
-                            <constraint firstItem="b1p-1L-iUJ" firstAttribute="top" secondItem="JQF-hH-bLm" secondAttribute="bottom" constant="20" id="xVQ-Vu-DOH"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7aM-pl-e6I"/>
@@ -103,7 +99,7 @@
                                     <constraint firstAttribute="height" constant="68" id="jQp-qm-iYH"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="42"/>
-                                <color key="textColor" name="orangeColor"/>
+                                <color key="textColor" name="orangeColorr"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Btk-Mp-kMP">
@@ -221,7 +217,7 @@
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="circle" catalog="system">
                                                         <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="26"/>
-                                                        <color key="baseForegroundColor" name="orangeColor"/>
+                                                        <color key="baseForegroundColor" name="orangeColorr"/>
                                                     </buttonConfiguration>
                                                 </button>
                                             </subviews>
@@ -250,7 +246,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ag-eX-X1M">
                                 <rect key="frame" x="80" y="44" width="216" height="44.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="37"/>
-                                <color key="textColor" name="orangeColor"/>
+                                <color key="textColor" name="orangeColorr"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wQR-80-Gm5">
@@ -325,7 +321,6 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t0b-Dh-F3Y">
                                                     <rect key="frame" x="106" y="27" width="238" height="28"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="262" id="GVL-QU-Nam"/>
                                                         <constraint firstAttribute="height" constant="28" id="cgd-xg-JYU"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -351,7 +346,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mXp-1C-HF3">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mXp-1C-HF3">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iap-8T-Kqt">
@@ -359,7 +354,7 @@
                                         <subviews>
                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="joa-Ip-hZv">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="667"/>
-                                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                                                 <connections>
                                                     <segue destination="EaQ-kr-p3r" kind="embed" identifier="humbergerSegue" id="ZEu-By-whe"/>
                                                 </connections>
@@ -401,13 +396,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="Kzc-As-niQ">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="hamburgerIcon" id="Ds6-Ep-e7y">
-                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="tintColor" name="textFieldColor"/>
                             <connections>
                                 <action selector="showHumbergerMenue:" destination="cWU-YW-ecZ" id="Xgz-zj-Xdt"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="nQW-9D-bEa">
-                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="tintColor" name="textFieldColor"/>
                             <connections>
                                 <segue destination="VX4-iV-DgV" kind="show" id="WSY-pM-Qi4"/>
                             </connections>
@@ -559,7 +554,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yCj-d6-Bmp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" name="BlackColor"/>
+                        <color key="tintColor" name="bageColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -609,7 +604,7 @@
                                     <constraint firstAttribute="height" constant="33.5" id="dXa-l9-qj8"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                <color key="textColor" name="orangeColor"/>
+                                <color key="textColor" name="orangeColorr"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8id-28-fum">
@@ -695,7 +690,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fRc-EZ-UYx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" name="BlackColor"/>
+                        <color key="tintColor" name="bageColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -723,7 +718,7 @@
                                             <constraint firstAttribute="height" constant="32.5" id="FWD-SP-M7h"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                        <color key="textColor" name="textFieldColor"/>
+                                        <color key="textColor" name="BlackColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MHh-XZ-4Vp">
@@ -784,7 +779,7 @@
                                     <constraint firstAttribute="height" constant="30" id="Kzo-Js-dIU"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="textFieldColor"/>
+                                <color key="textColor" name="BlackColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="IaC-fA-Vfq">
@@ -797,14 +792,14 @@
                                     <segment title="en"/>
                                     <segment title="ar"/>
                                 </segments>
-                                <color key="tintColor" name="textFieldColor"/>
+                                <color key="tintColor" name="BlackColor"/>
                                 <connections>
                                     <action selector="changeLanguageSegment:" destination="EaQ-kr-p3r" eventType="valueChanged" id="aP6-5l-Fmg"/>
                                 </connections>
                             </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RQo-qz-qyw"/>
-                        <color key="backgroundColor" name="darkBackgroundColor"/>
+                        <color key="backgroundColor" red="0.7929999828338623" green="0.75499999523162842" blue="0.73400002717971802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="aUI-fx-oTF" firstAttribute="top" secondItem="ko3-Y5-IEC" secondAttribute="top" id="0TP-ht-f7b"/>
                             <constraint firstItem="RQo-qz-qyw" firstAttribute="trailing" secondItem="LfN-wN-EaW" secondAttribute="trailing" constant="48" id="1aF-4r-yxX"/>
@@ -854,16 +849,19 @@
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="welcomeBackground" width="736" height="1119"/>
         <namedColor name="BlackColor">
-            <color red="0.0" green="0.0" blue="0.0039215688589999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.0" green="0.0" blue="0.0040000001899898052" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="backgroundColor">
             <color red="0.92199999094009399" green="0.87800002098083496" blue="0.85500001907348633" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <namedColor name="darkBackgroundColor">
-            <color red="0.7929999828338623" green="0.75499999523162842" blue="0.73400002717971802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="bageColor">
+            <color red="0.1058823466" green="0.19607841970000001" blue="0.24313727020000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="orangeColor">
             <color red="0.74900001287460327" green="0.58399999141693115" blue="0.43500000238418579" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="orangeColorr">
+            <color red="0.74509805439999999" green="0.57647061349999995" blue="0.44313728810000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="registerAndLoginColor">
             <color red="0.59600001573562622" green="0.62400001287460327" blue="0.56499999761581421" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -871,14 +869,14 @@
         <namedColor name="textFieldColor">
             <color red="0.15299999713897705" green="0.15299999713897705" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <namedColor name="welcomeBackgroundColor">
-            <color red="0.92199999094009399" green="0.87800002098083496" blue="0.85500001907348633" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

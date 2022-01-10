@@ -203,7 +203,7 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
                 UIView.animate(withDuration: 0.1) {
                     self.leadingConstraintForHumburgerView.constant = -10
                 } completion: { (status) in
-                    self.backViewForHumburger.alpha = 0.75
+                    self.backViewForHumburger.alpha = 1
                     self.isHamburgerMenuShown = true
                     self.backViewForHumburger.isHidden = false
                 }
@@ -239,7 +239,22 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "Delete".localized){(action,view,comlectionHandler) in
             let ref = Firestore.firestore().collection("Lists")
-//            let ref2 = Firestore.firestore().collection("records").whereField("categoryId", isEqualTo: self.lists[indexPath.row].id)
+            //**********
+             Firestore.firestore().collection("records").whereField("categoryId", isEqualTo: self.lists[indexPath.row].id).addSnapshotListener {snapShot  , error in
+                if let error = error {
+                    print("Error in db delete",error)
+                }else {
+                    snapShot?.documents.forEach({ diff in
+                        diff.reference.delete()
+                        if let currentUser = Auth.auth().currentUser{
+                            Storage.storage().reference(withPath: "records/\(currentUser.uid)/\(self.lists[indexPath.row].id)/\(diff.documentID)").delete { error in
+                                if let error = error {
+                                    print("Error in storage delete",error)
+                                }
+                            }}
+                    })
+                }}
+            //*******
             if let currentUser = Auth.auth().currentUser{
                 let listId = self.lists[indexPath.row].id
                 ref.document(self.lists[indexPath.row].id).delete { error in

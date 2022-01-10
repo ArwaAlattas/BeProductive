@@ -40,7 +40,7 @@ class NewListViewController: UIViewController {
     
     @IBAction func saveListAction(_ sender: Any) {
         if let image = newListImageView.image,
-           let imageData = image.jpegData(compressionQuality: 0.25),
+           let imageData = image.pngData(),
            let name = nameOfNewListTextField.text,
             let currentUser = Auth.auth().currentUser {
             Activity.showIndicator(parentView: self.view, childView: activityIndicator)
@@ -52,7 +52,7 @@ class NewListViewController: UIViewController {
             }
             let storageRef = Storage.storage().reference(withPath: "lists/\(currentUser.uid)/\(listId)")
             let uploadMeta = StorageMetadata.init()
-            uploadMeta.contentType = "image/jpeg"
+            uploadMeta.contentType = "image/png"
             storageRef.putData(imageData, metadata: uploadMeta) { storageMeta, error in
                 if let error = error {
                     print("Upload error",error.localizedDescription)

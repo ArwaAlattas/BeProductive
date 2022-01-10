@@ -27,7 +27,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var userImageView: UIImageView!{
     didSet{
         userImageView.layer.borderColor = UIColor.systemBackground.cgColor
-        userImageView.layer.borderWidth = 3.0
+        userImageView.layer.borderWidth = 1.0
         userImageView.layer.cornerRadius = userImageView.bounds.height / 2
         userImageView.layer.masksToBounds = true
         userImageView.isUserInteractionEnabled = true

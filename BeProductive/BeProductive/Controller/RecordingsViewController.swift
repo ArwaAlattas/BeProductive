@@ -204,7 +204,7 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
                               "categoryId":self.records[indexPath.row].categoryId,
                               "createdAt":self.records[indexPath.row].createdAt ?? FieldValue.serverTimestamp() ,
                               "updatedAt": FieldValue.serverTimestamp(),
-                              "state" : false
+                              "state" : self.records[indexPath.row].state
                 ]
                 let recordId = self.records[indexPath.row].id
                 ref.document(recordId).setData(recordData) { error in
