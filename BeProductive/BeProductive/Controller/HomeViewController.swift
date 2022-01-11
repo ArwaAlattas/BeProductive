@@ -9,7 +9,8 @@ import UIKit
 import Firebase
 class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
     var lists:[Category] = []
-//    var lists = [Category]()
+    var searchController = UISearchController(searchResultsController: nil)
+    var filteredList :[Category] = []
     var selectedList:Category?
     var selectedListImage:UIImage?
     @IBOutlet weak var leadingConstraintForHumburgerView: NSLayoutConstraint!
@@ -34,6 +35,12 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
         super.viewDidLoad()
         backViewForHumburger.isHidden = true
         gitList()
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = true
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Lists"
+        definesPresentationContext = true
+     searchController.searchResultsUpdater = self
         // Do any additional setup after loading the view.
     }
     
@@ -214,16 +221,16 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
 }
 extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return lists.count
+    
+        return searchController.isActive ? filteredList.count : lists.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listCell") as! ListTableViewCell
-//        if let currentUser = Auth.auth().currentUser ,
-//           lists[indexPath.row].userId.id == currentUser.uid{
+        let list = searchController.isActive ? filteredList[indexPath.row] : lists[indexPath.row]
         DispatchQueue.main.async {
-            cell.nameOfList.text = self.lists[indexPath.row].name
-            cell.imageOfList.loadImageUsingCache(with: self.lists[indexPath.row].imageUrl)
+            cell.nameOfList.text = list.name
+            cell.imageOfList.loadImageUsingCache(with: list.imageUrl)
         }
         
         return cell
@@ -280,6 +287,16 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
         deleteAction.backgroundColor = .systemRed
         return UISwipeActionsConfiguration(actions: [deleteAction])
         
+    }
+    
+    
+}
+extension HomeViewController:UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        filteredList = lists.filter({ list in
+            return list.name.lowercased().contains(searchController.searchBar.text!.lowercased())
+        })
+        listsTableView.reloadData()
     }
     
     
