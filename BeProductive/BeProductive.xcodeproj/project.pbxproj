@@ -18,6 +18,7 @@
 		AF3859662779986900FBCAE0 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = AF3859652779986900FBCAE0 /* FirebaseStorage */; };
 		AF472E5827801D4C00615A1F /* RecordingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF472E5727801D4C00615A1F /* RecordingsViewController.swift */; };
 		AF472E5A2780773500615A1F /* RecordingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF472E592780773500615A1F /* RecordingsTableViewCell.swift */; };
+		AF4B8AFA278F6C560003CDF7 /* MotivationStatmentsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B8AF9278F6C560003CDF7 /* MotivationStatmentsCollectionViewCell.swift */; };
 		AF55A221277A9C2E000BB436 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF55A220277A9C2E000BB436 /* HomeViewController.swift */; };
 		AF55A223277AA940000BB436 /* HumburgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF55A222277AA940000BB436 /* HumburgerViewController.swift */; };
 		AF5DC897277C0CCC00FFAE6B /* NewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5DC896277C0CCC00FFAE6B /* NewListViewController.swift */; };
@@ -49,6 +50,7 @@
 		AF3859582779953F00FBCAE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF472E5727801D4C00615A1F /* RecordingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsViewController.swift; sourceTree = "<group>"; };
 		AF472E592780773500615A1F /* RecordingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsTableViewCell.swift; sourceTree = "<group>"; };
+		AF4B8AF9278F6C560003CDF7 /* MotivationStatmentsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotivationStatmentsCollectionViewCell.swift; sourceTree = "<group>"; };
 		AF55A220277A9C2E000BB436 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AF55A222277AA940000BB436 /* HumburgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumburgerViewController.swift; sourceTree = "<group>"; };
 		AF5DC896277C0CCC00FFAE6B /* NewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			children = (
 				AF5DC898277C137700FFAE6B /* ListsCollectionViewCell.swift */,
 				AFDC6CA3277C59FF00BE835B /* ListTableViewCell.swift */,
+				AF4B8AF9278F6C560003CDF7 /* MotivationStatmentsCollectionViewCell.swift */,
 				AF472E592780773500615A1F /* RecordingsTableViewCell.swift */,
 				AF3859502779953A00FBCAE0 /* Main.storyboard */,
 			);
@@ -270,6 +273,7 @@
 				AFDB5FFE2779B5D500912D90 /* User.swift in Sources */,
 				AFDC6CA4277C59FF00BE835B /* ListTableViewCell.swift in Sources */,
 				AF472E5827801D4C00615A1F /* RecordingsViewController.swift in Sources */,
+				AF4B8AFA278F6C560003CDF7 /* MotivationStatmentsCollectionViewCell.swift in Sources */,
 				AF472E5A2780773500615A1F /* RecordingsTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

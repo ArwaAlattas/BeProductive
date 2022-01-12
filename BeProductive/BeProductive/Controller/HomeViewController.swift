@@ -16,6 +16,21 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
     @IBOutlet weak var leadingConstraintForHumburgerView: NSLayoutConstraint!
     @IBOutlet weak var backViewForHumburger: UIView!
     @IBOutlet weak var humbergerView: UIView!
+    
+    
+    
+    @IBOutlet weak var pageControlView: UIPageControl!
+    @IBOutlet weak var sliderCollectionView: UICollectionView!{
+        didSet{
+            sliderCollectionView.delegate = self
+            sliderCollectionView.dataSource = self
+        }
+    }
+    var statments = ["        BE PRODUCTIVE","KEEP GOING","SUCCESS IS A DECISION","WORK ON YOU FOR YOU","IT'S GOOD DAY TO HAVE GOOD DAY ","DO IT FOR YOU NOT FOR THEM","DREAM. PLAN. DO.","IF NOT NOW , WHEN ?","NO RISK   NO STORY","IF YOU CAN DREAM IT YOU CAN DO IT"]
+    var timer = Timer()
+    var counter = 0
+    
+    
     @IBOutlet weak var listsTableView: UITableView!{
         didSet{
             listsTableView.delegate = self
@@ -34,16 +49,36 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         backViewForHumburger.isHidden = true
+        
         gitList()
+        
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = true
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Lists"
         definesPresentationContext = true
      searchController.searchResultsUpdater = self
-        // Do any additional setup after loading the view.
+ 
+        pageControlView.numberOfPages = statments.count
+        pageControlView.currentPage = 0
+        DispatchQueue.main.async {
+            self.timer = Timer.scheduledTimer(timeInterval: 3.0 , target: self, selector: #selector(self.changeStatment), userInfo: nil, repeats: true)
+        }
     }
-    
+    @objc func changeStatment(){
+        if counter < statments.count{
+            let index = IndexPath.init(item: counter, section: 0)
+            self.sliderCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+            pageControlView.currentPage = counter
+            counter += 1
+        }else{
+          counter = 0
+            let index = IndexPath.init(item: counter, section: 0)
+            self.sliderCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
+            pageControlView.currentPage = counter
+            counter = 1
+        }
+    }
     func gitList(){
         let ref = Firestore.firestore()
         ref.collection("Lists").order(by: "createdAt", descending: true).addSnapshotListener { snapshot , error  in
@@ -232,7 +267,7 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
             cell.nameOfList.text = list.name
             cell.imageOfList.loadImageUsingCache(with: list.imageUrl)
         }
-        
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -299,5 +334,37 @@ extension HomeViewController:UISearchResultsUpdating {
         listsTableView.reloadData()
     }
     
+    
+}
+extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return statments.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MotivationStatmentsCollectionViewCell
+        
+        cell.motvationStatmentLabel.text = statments[indexPath.row]
+        
+        
+        return cell
+        
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = sliderCollectionView.frame.size
+        return CGSize(width: size.width , height: size.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 18.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 1.0
+    }
     
 }
