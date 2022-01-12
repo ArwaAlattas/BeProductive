@@ -19,14 +19,14 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
     
     
     
-    @IBOutlet weak var pageControlView: UIPageControl!
+
     @IBOutlet weak var sliderCollectionView: UICollectionView!{
         didSet{
             sliderCollectionView.delegate = self
             sliderCollectionView.dataSource = self
         }
     }
-    var statments = ["        BE PRODUCTIVE","KEEP GOING","SUCCESS IS A DECISION","WORK ON YOU FOR YOU","IT'S GOOD DAY TO HAVE GOOD DAY ","DO IT FOR YOU NOT FOR THEM","DREAM. PLAN. DO.","IF NOT NOW , WHEN ?","NO RISK   NO STORY","IF YOU CAN DREAM IT YOU CAN DO IT"]
+    var statments = ["        BE PRODUCTIVE","KEEP GOING","SUCCESS IS A DECISION","WORK ON YOU FOR YOU","IT'S GOOD DAY TO HAVE GOOD DAY ","DO IT FOR YOU NOT FOR THEM","DREAM. PLAN. DO.","IF NOT NOW , WHEN ?","NO RISK   NO STORY","IF YOU DREAM IT YOU CAN DO IT",""]
     var timer = Timer()
     var counter = 0
     
@@ -58,9 +58,7 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
         searchController.searchBar.placeholder = "Search Lists"
         definesPresentationContext = true
      searchController.searchResultsUpdater = self
- 
-        pageControlView.numberOfPages = statments.count
-        pageControlView.currentPage = 0
+
         DispatchQueue.main.async {
             self.timer = Timer.scheduledTimer(timeInterval: 3.0 , target: self, selector: #selector(self.changeStatment), userInfo: nil, repeats: true)
         }
@@ -69,13 +67,11 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
         if counter < statments.count{
             let index = IndexPath.init(item: counter, section: 0)
             self.sliderCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
-            pageControlView.currentPage = counter
             counter += 1
         }else{
           counter = 0
             let index = IndexPath.init(item: counter, section: 0)
             self.sliderCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
-            pageControlView.currentPage = counter
             counter = 1
         }
     }
