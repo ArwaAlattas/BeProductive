@@ -25,7 +25,9 @@ class RecordingsViewController: UIViewController,UITextFieldDelegate {
     var soundRecorder:AVAudioRecorder!
     var soundPlayer:AVAudioPlayer!
     var fileName:String = "audioFile.m4a"
-   
+
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +39,9 @@ class RecordingsViewController: UIViewController,UITextFieldDelegate {
         recordsTabelView.rowHeight = UITableView.automaticDimension
         getRecording()
        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
     }
     
     
@@ -112,7 +117,7 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
             cell.completeBTN.setImage(UIImage(systemName:"circle"), for: .normal)
         }
         cell.completeBTN .addTarget(self, action: #selector(completedAction), for: .touchUpInside)
-     cell.completeBTN.tag = indexPath.row
+        cell.completeBTN.tag = indexPath.row
         return cell
     }
     
@@ -123,8 +128,10 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
             soundPlayer.prepareToPlay()
             soundPlayer.volume = 1.0
             soundPlayer.play()
+            
         }
     }
+ 
     @objc func completedAction(sender:UIButton){
         var recordData = [String:Any]()
         let db = Firestore.firestore()
@@ -186,38 +193,38 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
                 }
             }
         }
-        let editAction = UIContextualAction(style: .normal, title: "Edit".localized){(action,view,comlectionHandler) in
-            let alert = UIAlertController(title: "Update".localized, message: "Write new title for record ".localized, preferredStyle: .alert)
-           
-            alert.addTextField { (textFeild:UITextField)  in
-                textFeild.text = self.records[indexPath.row].name
-               
-            }
-            let textFeild = alert.textFields![0]
-            alert.addAction(UIAlertAction(title: "Save", style:.destructive, handler: {(action: UIAlertAction) in
-                var recordData = [String:Any]()
-                let db = Firestore.firestore()
-                let ref = db.collection("records")
-                recordData = ["userId":self.records[indexPath.row].userId ,
-                              "name":textFeild.text!,
-                              "audioUrl": self.records[indexPath.row].audioUrl,
-                              "categoryId":self.records[indexPath.row].categoryId,
-                              "createdAt":self.records[indexPath.row].createdAt ?? FieldValue.serverTimestamp() ,
-                              "updatedAt": FieldValue.serverTimestamp(),
-                              "state" : self.records[indexPath.row].state
-                ]
-                let recordId = self.records[indexPath.row].id
-                ref.document(recordId).setData(recordData) { error in
-                    if let error = error {
-                        print("FireStore Error",error.localizedDescription)
-                    }
-                }
-            }))
-            self.present(alert, animated: true, completion: nil)
-        }
+        
         deleteAction.backgroundColor = .systemRed
-        editAction.backgroundColor = .systemGray
-        return UISwipeActionsConfiguration(actions: [deleteAction,editAction])
+       
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Update".localized, message: "Write new title for record ".localized, preferredStyle: .alert)
+       
+        alert.addTextField { (textFeild:UITextField)  in
+            textFeild.text = self.records[indexPath.row].name
+        }
+        let textFeild = alert.textFields![0]
+        alert.addAction(UIAlertAction(title: "Save", style:.destructive, handler: {(action: UIAlertAction) in
+            var recordData = [String:Any]()
+            let db = Firestore.firestore()
+            let ref = db.collection("records")
+            recordData = ["userId":self.records[indexPath.row].userId ,
+                          "name":textFeild.text!,
+                          "audioUrl": self.records[indexPath.row].audioUrl,
+                          "categoryId":self.records[indexPath.row].categoryId,
+                          "createdAt":self.records[indexPath.row].createdAt ?? FieldValue.serverTimestamp() ,
+                          "updatedAt": FieldValue.serverTimestamp(),
+                          "state" : self.records[indexPath.row].state
+            ]
+            let recordId = self.records[indexPath.row].id
+            ref.document(recordId).setData(recordData) { error in
+                if let error = error {
+                    print("FireStore Error",error.localizedDescription)
+                }
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -302,16 +309,30 @@ extension RecordingsViewController:AVAudioRecorderDelegate,AVAudioPlayerDelegate
         }
     }
     
-    
-    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        //        playBTN.isEnabled = true
-        //        recordsTabelView.reloadData()
-    }
+//    func setupPlayer(){
+//        let audiofileName = gitDirec().appendingPathComponent(fileName)
+//        do{
+//          soundPlayer = try AVAudioPlayer(contentsOf: audiofileName)
+//            soundPlayer.delegate = self
+//            soundPlayer.prepareToPlay()
+//            soundPlayer.volume = 1.0
+//        } catch{
+//            print(error)
+//        }
+//    }
+//
+//    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+//        //        playBTN.isEnabled = true
+//        //        recordsTabelView.reloadData()
+//    }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        recordingBTN.isEnabled = true
+//        recordingBTN.isEnabled = true
+
+//       .setImage(UIImage(systemName: "play.fill"), for: .normal)
         
-    }
+        
+        }
 }
 
 

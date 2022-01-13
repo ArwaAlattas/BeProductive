@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF19CE4A27821F9100E0535D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF19CE4927821F9100E0535D /* GoogleService-Info.plist */; };
 		AF38594B2779953A00FBCAE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF38594A2779953A00FBCAE0 /* AppDelegate.swift */; };
 		AF38594D2779953A00FBCAE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF38594C2779953A00FBCAE0 /* SceneDelegate.swift */; };
 		AF3859522779953A00FBCAE0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3859502779953A00FBCAE0 /* Main.storyboard */; };
@@ -23,7 +22,9 @@
 		AF55A223277AA940000BB436 /* HumburgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF55A222277AA940000BB436 /* HumburgerViewController.swift */; };
 		AF5DC897277C0CCC00FFAE6B /* NewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5DC896277C0CCC00FFAE6B /* NewListViewController.swift */; };
 		AF5DC899277C137700FFAE6B /* ListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5DC898277C137700FFAE6B /* ListsCollectionViewCell.swift */; };
+		AF6D275D2790067D0055DFCE /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AF6D275C2790067D0055DFCE /* IQKeyboardManagerSwift */; };
 		AF7AF4E62784E8400080DE6B /* BundleExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7AF4E52784E8400080DE6B /* BundleExtention.swift */; };
+		AFA7A7B02790B86F00E68693 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AFA7A7AF2790B86F00E68693 /* GoogleService-Info.plist */; };
 		AFC65E2127818D50004E110C /* NewRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC65E2027818D50004E110C /* NewRecordViewController.swift */; };
 		AFDB5FFE2779B5D500912D90 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDB5FFD2779B5D500912D90 /* User.swift */; };
 		AFDB60002779B5ED00912D90 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDB5FFF2779B5ED00912D90 /* Record.swift */; };
@@ -40,7 +41,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AF19CE4927821F9100E0535D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AF3859472779953A00FBCAE0 /* BeProductive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeProductive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF38594A2779953A00FBCAE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF38594C2779953A00FBCAE0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +56,7 @@
 		AF5DC896277C0CCC00FFAE6B /* NewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListViewController.swift; sourceTree = "<group>"; };
 		AF5DC898277C137700FFAE6B /* ListsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsCollectionViewCell.swift; sourceTree = "<group>"; };
 		AF7AF4E52784E8400080DE6B /* BundleExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtention.swift; sourceTree = "<group>"; };
+		AFA7A7AF2790B86F00E68693 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AFC65E2027818D50004E110C /* NewRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecordViewController.swift; sourceTree = "<group>"; };
 		AFDB5FFD2779B5D500912D90 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AFDB5FFF2779B5ED00912D90 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
@@ -80,6 +81,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF3859622779986900FBCAE0 /* FirebaseAuth in Frameworks */,
+				AF6D275D2790067D0055DFCE /* IQKeyboardManagerSwift in Frameworks */,
 				AF3859642779986900FBCAE0 /* FirebaseFirestore in Frameworks */,
 				AF3859662779986900FBCAE0 /* FirebaseStorage in Frameworks */,
 			);
@@ -119,7 +121,7 @@
 				AF3859552779953F00FBCAE0 /* LaunchScreen.storyboard */,
 				AFDB60152779E8E800912D90 /* Localization.strings */,
 				AF3859582779953F00FBCAE0 /* Info.plist */,
-				AF19CE4927821F9100E0535D /* GoogleService-Info.plist */,
+				AFA7A7AF2790B86F00E68693 /* GoogleService-Info.plist */,
 			);
 			path = BeProductive;
 			sourceTree = "<group>";
@@ -191,6 +193,7 @@
 				AF3859612779986900FBCAE0 /* FirebaseAuth */,
 				AF3859632779986900FBCAE0 /* FirebaseFirestore */,
 				AF3859652779986900FBCAE0 /* FirebaseStorage */,
+				AF6D275C2790067D0055DFCE /* IQKeyboardManagerSwift */,
 			);
 			productName = BeProductive;
 			productReference = AF3859472779953A00FBCAE0 /* BeProductive.app */;
@@ -223,6 +226,7 @@
 			mainGroup = AF38593E2779953A00FBCAE0;
 			packageReferences = (
 				AF3859602779986900FBCAE0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				AF6D275B2790067D0055DFCE /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = AF3859482779953A00FBCAE0 /* Products */;
 			projectDirPath = "";
@@ -239,10 +243,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFDB600E2779D43600912D90 /* README.md in Resources */,
-				AF19CE4A27821F9100E0535D /* GoogleService-Info.plist in Resources */,
 				AFDB600C2779D40E00912D90 /* .gitignore in Resources */,
 				AFDB60132779E8E800912D90 /* Localization.strings in Resources */,
 				AF3859572779953F00FBCAE0 /* LaunchScreen.storyboard in Resources */,
+				AFA7A7B02790B86F00E68693 /* GoogleService-Info.plist in Resources */,
 				AF3859542779953F00FBCAE0 /* Assets.xcassets in Resources */,
 				AF3859522779953A00FBCAE0 /* Main.storyboard in Resources */,
 			);
@@ -517,6 +521,14 @@
 				minimumVersion = 8.0.0;
 			};
 		};
+		AF6D275B2790067D0055DFCE /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -534,6 +546,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AF3859602779986900FBCAE0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		AF6D275C2790067D0055DFCE /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF6D275B2790067D0055DFCE /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

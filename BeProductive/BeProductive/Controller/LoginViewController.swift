@@ -29,18 +29,32 @@ class LoginViewController: UIViewController {
     }
     @IBOutlet weak var userPasswordTextField: UITextField!{
         didSet{
-//            userPasswordTextField.placeholder = "PASSWORD".localized
             userPasswordTextField.attributedPlaceholder = NSAttributedString(string: "PASSWORD".localized, attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray])
             userPasswordTextField.delegate = self
-            userPasswordTextField.isSecureTextEntry = true
         }
     }
+    @IBOutlet weak var eyePass: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        view.addGestureRecognizer(UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:))))
+        
+        userPasswordTextField.rightView = eyePass
+        userPasswordTextField.rightViewMode = .whileEditing
     }
-    
+    @IBAction func eyePass(_ sender: UIButton) {
+        userPasswordTextField.isSecureTextEntry.toggle()
+               if  userPasswordTextField.isSecureTextEntry {
+                   if let image = UIImage(systemName: "eye.fill") {
+                       sender.setImage(image, for: .normal)
+                   }
+               } else {
+                   if let image = UIImage(systemName: "eye.slash.fill"){
+                       sender.setImage(image, for: .normal)
+                   }
+    }
+    }
     @IBAction func handleLoginBTN(_ sender: Any) {
         
         if let email = userEmailTextField.text,

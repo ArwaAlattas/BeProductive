@@ -17,8 +17,6 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
     @IBOutlet weak var backViewForHumburger: UIView!
     @IBOutlet weak var humbergerView: UIView!
     
-    
-    
 
     @IBOutlet weak var sliderCollectionView: UICollectionView!{
         didSet{
@@ -264,6 +262,7 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
             cell.imageOfList.loadImageUsingCache(with: list.imageUrl)
         }
         cell.accessoryType = .disclosureIndicator
+        cell.selectionStyle = .none
         return cell
     }
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

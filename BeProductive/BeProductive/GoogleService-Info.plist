@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>537953032620-3v3qquuee8t0bv4ihjpajo2511omtclu.apps.googleusercontent.com</string>
+	<string>261624486383-d6qghe1m8ijq1hm46gj5b29a9mfgpjha.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.537953032620-3v3qquuee8t0bv4ihjpajo2511omtclu</string>
+	<string>com.googleusercontent.apps.261624486383-d6qghe1m8ijq1hm46gj5b29a9mfgpjha</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDm-b3ybCA13cuMLkstufcVtikuQzxVaEQ</string>
+	<string>AIzaSyANsMP65x7hg2bmp0VBZQcD6Xu1m9tljCU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>537953032620</string>
+	<string>261624486383</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>Arwa-macbook-pro.BeProductive</string>
 	<key>PROJECT_ID</key>
-	<string>beproductive-6f077</string>
+	<string>be-productive-6aaa4</string>
 	<key>STORAGE_BUCKET</key>
-	<string>beproductive-6f077.appspot.com</string>
+	<string>be-productive-6aaa4.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:537953032620:ios:d75e510094789118ee8209</string>
+	<string>1:261624486383:ios:d1218fac8a502f37a13e1a</string>
 </dict>
 </plist>
