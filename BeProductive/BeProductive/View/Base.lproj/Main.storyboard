@@ -293,7 +293,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="76" id="yMH-if-AmE"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="57"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="56"/>
                                 <color key="textColor" name="textWhiteColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
