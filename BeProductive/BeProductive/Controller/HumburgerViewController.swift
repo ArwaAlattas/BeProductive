@@ -139,7 +139,7 @@ class HumburgerViewController: UIViewController {
             }
             UserDefaults.standard.set(lang, forKey: "currentLanguage")
             Bundle.setLanguage(lang)
-            if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeNavigationController") as? UINavigationController {
+            if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "tabBar") as? UITabBarController{
                 vc.modalPresentationStyle = .fullScreen
                 Activity.removeIndicator(parentView: self.view, childView: self.activityIndicator)
                 self.present(vc, animated: true, completion: nil)

@@ -24,6 +24,7 @@
 		AF5DC899277C137700FFAE6B /* ListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5DC898277C137700FFAE6B /* ListsCollectionViewCell.swift */; };
 		AF6D275D2790067D0055DFCE /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AF6D275C2790067D0055DFCE /* IQKeyboardManagerSwift */; };
 		AF7AF4E62784E8400080DE6B /* BundleExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7AF4E52784E8400080DE6B /* BundleExtention.swift */; };
+		AF8808BF2791FE6D00235E28 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8808BE2791FE6D00235E28 /* TimerViewController.swift */; };
 		AFA7A7B02790B86F00E68693 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AFA7A7AF2790B86F00E68693 /* GoogleService-Info.plist */; };
 		AFC65E2127818D50004E110C /* NewRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC65E2027818D50004E110C /* NewRecordViewController.swift */; };
 		AFDB5FFE2779B5D500912D90 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDB5FFD2779B5D500912D90 /* User.swift */; };
@@ -56,6 +57,7 @@
 		AF5DC896277C0CCC00FFAE6B /* NewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListViewController.swift; sourceTree = "<group>"; };
 		AF5DC898277C137700FFAE6B /* ListsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsCollectionViewCell.swift; sourceTree = "<group>"; };
 		AF7AF4E52784E8400080DE6B /* BundleExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtention.swift; sourceTree = "<group>"; };
+		AF8808BE2791FE6D00235E28 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		AFA7A7AF2790B86F00E68693 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AFC65E2027818D50004E110C /* NewRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecordViewController.swift; sourceTree = "<group>"; };
 		AFDB5FFD2779B5D500912D90 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				AF5DC896277C0CCC00FFAE6B /* NewListViewController.swift */,
 				AF472E5727801D4C00615A1F /* RecordingsViewController.swift */,
 				AFC65E2027818D50004E110C /* NewRecordViewController.swift */,
+				AF8808BE2791FE6D00235E28 /* TimerViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				AF5DC897277C0CCC00FFAE6B /* NewListViewController.swift in Sources */,
 				AF7AF4E62784E8400080DE6B /* BundleExtention.swift in Sources */,
 				AFDB60052779B6D400912D90 /* WelcomeViewController.swift in Sources */,
+				AF8808BF2791FE6D00235E28 /* TimerViewController.swift in Sources */,
 				AF55A221277A9C2E000BB436 /* HomeViewController.swift in Sources */,
 				AF5DC899277C137700FFAE6B /* ListsCollectionViewCell.swift in Sources */,
 				AFDB60182779F3A000912D90 /* ImageView.swift in Sources */,
