@@ -31,17 +31,18 @@ class RecordingsViewController: UIViewController,UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getRecording()
         setupRecorder()
         if let selectedList = selectedList {
             nameOfListLabel.text = selectedList.name
         }
         recordsTabelView.estimatedRowHeight = 183
         recordsTabelView.rowHeight = UITableView.automaticDimension
-        getRecording()
-       
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        
     }
     
     
@@ -54,32 +55,31 @@ class RecordingsViewController: UIViewController,UITextFieldDelegate {
                 print("DB ERROR listss",error.localizedDescription)
             }
             if let snapshot = snapshot {
-                print("liST CANGES:",snapshot.documentChanges.count)
+                print("Record CANGES:",snapshot.documentChanges.count)
                 snapshot.documentChanges.forEach { diff in
-                    let listData = diff.document.data()
+                    let recordData = diff.document.data()
                     switch diff.type{
                     case .added:
-                        let record = Record(dict: listData, id:diff.document.documentID)
+                        let record = Record(dict: recordData, id:diff.document.documentID)
                         self.recordsTabelView.beginUpdates()
                         if snapshot.documentChanges.count != 1 {
                             self.records.append(record)
-                            self.recordsTabelView.insertRows(at: [IndexPath(row: self.records.count-1, section: 0)], with: .none)
-                        }else{
+                            self.recordsTabelView.insertRows(at: [IndexPath(row: self.records.count-1, section: 0)], with: .automatic)
+                               }else{
                             self.records.insert(record, at: 0)
-                            self.recordsTabelView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+                            self.recordsTabelView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
                         }
                         self.recordsTabelView.endUpdates()
-                        print("ADD",listData["audioUrl"]!)
+                        print("ADD",recordData["audioUrl"]!)
                         
                     case .modified:
                         let recordId = diff.document.documentID
-                        if let currentRecord = self.records.first(where: { $0.id == recordId
-                        }), let updateIndex = self.records.firstIndex(where: { $0.id == recordId }){
-                            let newRecord = Record(dict: listData, id: diff.document.documentID)
+                        if  let updateIndex = self.records.firstIndex(where: { $0.id == recordId }){
+                            let newRecord = Record(dict: recordData, id: diff.document.documentID)
                             self.records[updateIndex] = newRecord
                             self.recordsTabelView.beginUpdates()
-                            self.recordsTabelView.deleteRows(at: [IndexPath(row: updateIndex, section: 0)], with: .none)
-                            self.recordsTabelView.insertRows(at: [IndexPath(row: updateIndex,section: 0)],with: .fade)
+                            self.recordsTabelView.deleteRows(at: [IndexPath(row: updateIndex, section: 0)], with: .left)
+                            self.recordsTabelView.insertRows(at: [IndexPath(row: updateIndex,section: 0)],with: .left)
                             self.recordsTabelView.endUpdates()
                         }
                     case .removed:
@@ -87,7 +87,7 @@ class RecordingsViewController: UIViewController,UITextFieldDelegate {
                         if let deletIndex = self.records.firstIndex(where: {$0.id == recordId}){
                             self.records.remove(at: deletIndex)
                             self.recordsTabelView.beginUpdates()
-                            self.recordsTabelView.deleteRows(at: [IndexPath(row: deletIndex,section: 0)], with: .none)
+                            self.recordsTabelView.deleteRows(at: [IndexPath(row: deletIndex,section: 0)], with: .automatic)
                             self.recordsTabelView.endUpdates()
                         }
                     }
@@ -97,8 +97,117 @@ class RecordingsViewController: UIViewController,UITextFieldDelegate {
     }   
 }
 
+//**************************************************************************//
 
-                //**************************************************************************//
+extension RecordingsViewController:AVAudioRecorderDelegate,AVAudioPlayerDelegate{
+    
+    func gitDirec()-> URL {
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return path[0]
+    }
+    func setupRecorder(){
+        let audiofileName = gitDirec().appendingPathComponent(fileName)
+        let recordSetting = [AVFormatIDKey:kAudioFormatAppleLossless,
+                  AVEncoderAudioQualityKey:AVAudioQuality.max.rawValue,
+                       AVEncoderBitRateKey:320000,
+                           AVSampleRateKey:44100.2] as [String:Any]
+        do{
+            soundRecorder = try AVAudioRecorder(url: audiofileName, settings: recordSetting)
+            soundRecorder.delegate = self
+            soundRecorder.prepareToRecord()
+        }catch{
+            print(error)
+        }
+    }
+    
+    @IBAction func startRecordAction(_ sender: Any) {
+        
+        if recordingBTN.imageView?.image == UIImage(systemName: "mic.fill"){
+            recordingBTN.setImage(UIImage(systemName: "record.circle"), for: .normal)
+            soundRecorder.record()
+         }else{
+            soundRecorder.stop()
+            uploadSound(audieURL:soundRecorder.url)
+             recordingBTN.setImage(UIImage(systemName: "mic.fill"), for: .normal)
+        }
+    }
+    
+    func uploadSound(audieURL:URL) {
+        if let currentUser = Auth.auth().currentUser,
+           let selectedList = selectedList?.id
+        {
+            let  recordId = "\(Firebase.UUID())"
+            
+            let metadata = StorageMetadata.init()
+            metadata.contentType = "audio/m4a"
+            let storageRef = Storage.storage().reference(withPath: "records/\(currentUser.uid)/\(selectedList)/\(recordId)")
+            do {
+                let audioData =  try Data(contentsOf:audieURL)
+                storageRef.putData(audioData, metadata:metadata) { data, error in
+                    if let error = error {
+                        print("Upload error",error.localizedDescription)
+                    }
+                    storageRef.downloadURL { url, error in
+                        var recordData = [String:Any]()
+                        if let url = url{
+                            let db = Firestore.firestore()
+                            let ref = db.collection("records")
+                            if let selectedList = self.selectedList {
+                                recordData = ["userId": selectedList.userId.id,
+                                              "name":"new record",
+                                              "audioUrl": url.absoluteString,
+                                              "categoryId":selectedList.id,
+                                              "createdAt":selectedList.createdAt ?? FieldValue.serverTimestamp() ,
+                                              "updatedAt": FieldValue.serverTimestamp(),
+                                              "state" : false
+                                ]
+                            }
+                            ref.document(recordId).setData(recordData) { error in
+                                if let error = error {
+                                    print("FireStore Error",error.localizedDescription)
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch  {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+
+    
+//    func setupPlayer(){
+//        let audiofileName = gitDirec().appendingPathComponent(fileName)
+//        do{
+//          soundPlayer = try AVAudioPlayer(contentsOf: audiofileName)
+//            soundPlayer.delegate = self
+//            soundPlayer.prepareToPlay()
+//            soundPlayer.volume = 1.0
+//        } catch{
+//            print(error)
+//        }
+//    }
+//
+//    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+//        //        playBTN.isEnabled = true
+//        //        recordsTabelView.reloadData()
+//    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+//        recordingBTN.isEnabled = true
+
+//       .setImage(UIImage(systemName: "play.fill"), for: .normal)
+        
+        
+        }
+}
+
+
+
+
+  //**************************************************************************//
 
 
 extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
@@ -122,13 +231,21 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     @objc func playrecord(sender:UIButton){
+        if sender.imageView?.image == UIImage(systemName: "play.fill"){
         if let url = URL(string:records[sender.tag].audioUrl){
+            print("taaaaaaaggggg \(sender.tag)")
+            print("ttttttttttttthe url\(records[sender.tag].audioUrl)")
             let data = try! Data(contentsOf: url)
             soundPlayer = try! AVAudioPlayer(data: data)
             soundPlayer.prepareToPlay()
+            soundPlayer.delegate = self
             soundPlayer.volume = 1.0
             soundPlayer.play()
+            sender.setImage(UIImage(systemName: "pause.fill"), for: .normal)
             
+        }}else{
+            soundPlayer.stop()
+            sender.setImage(UIImage(systemName: "play.fill"), for: .normal)
         }
     }
  
@@ -197,7 +314,11 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
         deleteAction.backgroundColor = .systemRed
        
         return UISwipeActionsConfiguration(actions: [deleteAction])
+        
+        
     }
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let alert = UIAlertController(title: "Update".localized, message: "Write new title for record ".localized, preferredStyle: .alert)
        
@@ -230,109 +351,5 @@ extension RecordingsViewController:UITableViewDelegate,UITableViewDataSource{
 
                  //**************************************************************************//
 
-
-
-extension RecordingsViewController:AVAudioRecorderDelegate,AVAudioPlayerDelegate{
-    
-    @IBAction func startRecordAction(_ sender: Any) {
-        
-        if recordingBTN.imageView?.image == UIImage(systemName: "mic.fill"){
-            recordingBTN.setImage(UIImage(systemName: "record.circle"), for: .normal)
-            soundRecorder.record()
-         }else{
-            soundRecorder.stop()
-            uploadSound(audieURL:soundRecorder.url)
-             recordingBTN.setImage(UIImage(systemName: "mic.fill"), for: .normal)
-        }
-    }
-    
-    func uploadSound(audieURL:URL) {
-        if let currentUser = Auth.auth().currentUser,
-           let selectedList = selectedList?.id
-        {
-            let  recordId = "\(Firebase.UUID())"
-            
-            let metadata = StorageMetadata.init()
-            metadata.contentType = "audio/m4a"
-            let storageRef = Storage.storage().reference(withPath: "records/\(currentUser.uid)/\(selectedList)/\(recordId)")
-            do {
-                let audioData =  try Data(contentsOf:audieURL)
-                storageRef.putData(audioData, metadata:metadata) { data, error in
-                    if let error = error {
-                        print("Upload error",error.localizedDescription)
-                    }
-                    storageRef.downloadURL { url, error in
-                        var recordData = [String:Any]()
-                        if let url = url{
-                            let db = Firestore.firestore()
-                            let ref = db.collection("records")
-                            if let selectedList = self.selectedList {
-                                recordData = ["userId": selectedList.userId.id,
-                                              "name":"new record",
-                                              "audioUrl": url.absoluteString,
-                                              "categoryId":selectedList.id,
-                                              "createdAt":selectedList.createdAt ?? FieldValue.serverTimestamp() ,
-                                              "updatedAt": FieldValue.serverTimestamp(),
-                                              "state" : false
-                                ]
-                            }
-                            ref.document(recordId).setData(recordData) { error in
-                                if let error = error {
-                                    print("FireStore Error",error.localizedDescription)
-                                }
-                            }
-                        }
-                    }
-                }
-            } catch  {
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func gitDirec()-> URL {
-        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return path[0]
-    }
-    func setupRecorder(){
-        let audiofileName = gitDirec().appendingPathComponent(fileName)
-        let recordSetting = [AVFormatIDKey:kAudioFormatAppleLossless,
-                  AVEncoderAudioQualityKey:AVAudioQuality.max.rawValue,
-                       AVEncoderBitRateKey:320000,
-                           AVSampleRateKey:44100.2] as [String:Any]
-        do{
-            soundRecorder = try AVAudioRecorder(url: audiofileName, settings: recordSetting)
-            soundRecorder.delegate = self
-            soundRecorder.prepareToRecord()
-        }catch{
-            print(error)
-        }
-    }
-    
-//    func setupPlayer(){
-//        let audiofileName = gitDirec().appendingPathComponent(fileName)
-//        do{
-//          soundPlayer = try AVAudioPlayer(contentsOf: audiofileName)
-//            soundPlayer.delegate = self
-//            soundPlayer.prepareToPlay()
-//            soundPlayer.volume = 1.0
-//        } catch{
-//            print(error)
-//        }
-//    }
-//
-//    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-//        //        playBTN.isEnabled = true
-//        //        recordsTabelView.reloadData()
-//    }
-    
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-//        recordingBTN.isEnabled = true
-
-//       .setImage(UIImage(systemName: "play.fill"), for: .normal)
-        
-        
-        }
-}
 
 

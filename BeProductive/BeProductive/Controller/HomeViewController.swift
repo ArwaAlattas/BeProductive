@@ -53,7 +53,7 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = true
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search Lists"
+        searchController.searchBar.placeholder = "Search Lists".localized
         definesPresentationContext = true
      searchController.searchResultsUpdater = self
 
