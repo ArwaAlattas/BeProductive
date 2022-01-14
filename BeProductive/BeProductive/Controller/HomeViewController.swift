@@ -18,15 +18,7 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
     @IBOutlet weak var humbergerView: UIView!
     
 
-    @IBOutlet weak var sliderCollectionView: UICollectionView!{
-        didSet{
-            sliderCollectionView.delegate = self
-            sliderCollectionView.dataSource = self
-        }
-    }
-    var statments = ["        BE PRODUCTIVE","KEEP GOING","SUCCESS IS A DECISION","WORK ON YOU FOR YOU","IT'S GOOD DAY TO HAVE GOOD DAY ","DO IT FOR YOU NOT FOR THEM","DREAM. PLAN. DO.","IF NOT NOW , WHEN ?","NO RISK   NO STORY","IF YOU DREAM IT YOU CAN DO IT",""]
-    var timer = Timer()
-    var counter = 0
+   
     
     
     @IBOutlet weak var listsTableView: UITableView!{
@@ -57,22 +49,9 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
         definesPresentationContext = true
      searchController.searchResultsUpdater = self
 
-        DispatchQueue.main.async {
-            self.timer = Timer.scheduledTimer(timeInterval: 3.0 , target: self, selector: #selector(self.changeStatment), userInfo: nil, repeats: true)
-        }
+      
     }
-    @objc func changeStatment(){
-        if counter < statments.count{
-            let index = IndexPath.init(item: counter, section: 0)
-            self.sliderCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
-            counter += 1
-        }else{
-          counter = 0
-            let index = IndexPath.init(item: counter, section: 0)
-            self.sliderCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
-            counter = 1
-        }
-    }
+  
     func gitList(){
         let ref = Firestore.firestore()
         ref.collection("Lists").order(by: "createdAt", descending: true).addSnapshotListener { snapshot , error  in
@@ -159,6 +138,7 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
     }
     private func hideHamburgerView()
     {
+        navigationItem.searchController?.searchBar.isHidden = false
         UIView.animate(withDuration: 0.1) {
             self.leadingConstraintForHumburgerView.constant = 10
             self.view.layoutIfNeeded()
@@ -174,11 +154,12 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
         }
     }
     @IBAction func showHumbergerMenue(_ sender: Any) {
+        navigationItem.searchController?.searchBar.isHidden = true
         UIView.animate(withDuration: 0.1) {
             self.leadingConstraintForHumburgerView.constant = 10
             self.view.layoutIfNeeded()
         } completion: { (status) in
-            self.backViewForHumburger.alpha = 0.90
+            self.backViewForHumburger.alpha = 1
             self.backViewForHumburger.isHidden = false
             UIView.animate(withDuration: 0.1) {
                 self.leadingConstraintForHumburgerView.constant = 0
@@ -192,6 +173,7 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
         
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+       
         if (isHamburgerMenuShown)
         {
              if let touch = touches.first
@@ -245,8 +227,9 @@ class HomeViewController: UIViewController,HamburgerViewControllerDelegate {
                 }
             }
         }
-        
+        navigationItem.searchController?.searchBar.isHidden = false
     }
+    
 }
 extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -331,35 +314,4 @@ extension HomeViewController:UISearchResultsUpdating {
     
     
 }
-extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return statments.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MotivationStatmentsCollectionViewCell
-        
-        cell.motvationStatmentLabel.text = statments[indexPath.row]
-        
-        
-        return cell
-        
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = sliderCollectionView.frame.size
-        return CGSize(width: size.width , height: size.height)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 18.0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 1.0
-    }
-    
-}
+

@@ -74,12 +74,16 @@ class HumburgerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         userProfileImageView.image = nil
             gitList()
         // Do any additional setup after loading the view.
        
     }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        navigationController?.setNavigationBarHidden(true, animated: animated)
+//   
+//    }
     func gitList(){
         let ref = Firestore.firestore()
         ref.collection("Lists").order(by: "createdAt", descending: true).addSnapshotListener { snapshot , error  in
