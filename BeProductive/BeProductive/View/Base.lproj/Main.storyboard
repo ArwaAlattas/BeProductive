@@ -196,22 +196,20 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sandGlass" translatesAutoresizingMaskIntoConstraints="NO" id="W5Q-sz-BIu">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HFa-FU-IdG">
-                                <rect key="frame" x="84" y="151.5" width="207" height="76"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="76" id="yMH-if-AmE"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="57"/>
-                                <color key="textColor" name="textWhiteColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="rZ2-Ab-TLm">
-                                <rect key="frame" x="66" y="307.5" width="243" height="93.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="rZ2-Ab-TLm">
+                                <rect key="frame" x="92" y="339" width="209" height="35"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cL9-5b-c00">
-                                        <rect key="frame" x="0.0" y="0.0" width="96.5" height="93.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="84.5" height="35"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="START">
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="START">
+                                                    <attributes>
+                                                        <font key="NSFont" size="18" name="Helvetica-Bold"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
                                             <color key="baseForegroundColor" name="textWhiteColor"/>
                                         </buttonConfiguration>
                                         <connections>
@@ -219,9 +217,17 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LKr-dj-uIl">
-                                        <rect key="frame" x="146.5" y="0.0" width="96.5" height="93.5"/>
+                                        <rect key="frame" x="124.5" y="0.0" width="84.5" height="35"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="RESET">
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="RESET">
+                                                    <attributes>
+                                                        <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                        <font key="NSFont" size="18" name="Helvetica-Bold"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
                                             <color key="baseForegroundColor" name="textWhiteColor"/>
                                         </buttonConfiguration>
                                         <connections>
@@ -231,8 +237,8 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start the timer to focus on any task " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t1e-lm-xBO">
-                                <rect key="frame" x="40" y="72.5" width="294" height="18"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <rect key="frame" x="40" y="54" width="294" height="19.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <color key="textColor" name="textWhiteColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -282,27 +288,36 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HFa-FU-IdG">
+                                <rect key="frame" x="92" y="234" width="207" height="76"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="76" id="yMH-if-AmE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="57"/>
+                                <color key="textColor" name="textWhiteColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="axJ-CS-pg8"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="axJ-CS-pg8" firstAttribute="trailing" secondItem="t1e-lm-xBO" secondAttribute="trailing" constant="41" id="1L5-CH-sbC"/>
-                            <constraint firstItem="rZ2-Ab-TLm" firstAttribute="leading" secondItem="axJ-CS-pg8" secondAttribute="leading" constant="66" id="1U5-qG-pdE"/>
                             <constraint firstAttribute="trailing" secondItem="W5Q-sz-BIu" secondAttribute="trailing" id="3vO-zw-Oou"/>
-                            <constraint firstItem="HFa-FU-IdG" firstAttribute="leading" secondItem="axJ-CS-pg8" secondAttribute="leading" constant="84" id="5m2-BK-LAH"/>
-                            <constraint firstItem="axJ-CS-pg8" firstAttribute="trailing" secondItem="HFa-FU-IdG" secondAttribute="trailing" constant="84" id="5tk-76-XhU"/>
+                            <constraint firstItem="axJ-CS-pg8" firstAttribute="trailing" secondItem="rZ2-Ab-TLm" secondAttribute="trailing" constant="74" id="4Rb-ZS-pFn"/>
                             <constraint firstItem="W5Q-sz-BIu" firstAttribute="top" secondItem="uLc-Yn-Kud" secondAttribute="top" id="9gY-XE-zl2"/>
                             <constraint firstItem="t1e-lm-xBO" firstAttribute="leading" secondItem="axJ-CS-pg8" secondAttribute="leading" constant="40" id="Cfi-d0-pgl"/>
                             <constraint firstItem="W5Q-sz-BIu" firstAttribute="leading" secondItem="uLc-Yn-Kud" secondAttribute="leading" id="E4j-RW-Xo5"/>
-                            <constraint firstItem="rZ2-Ab-TLm" firstAttribute="top" secondItem="HFa-FU-IdG" secondAttribute="bottom" constant="80" id="GtW-1Q-iDx"/>
-                            <constraint firstItem="HFa-FU-IdG" firstAttribute="top" secondItem="t1e-lm-xBO" secondAttribute="bottom" constant="61" id="JCc-yj-Dp8"/>
                             <constraint firstItem="20W-9d-yqr" firstAttribute="trailing" secondItem="axJ-CS-pg8" secondAttribute="trailing" id="JiB-WH-OjV"/>
-                            <constraint firstItem="axJ-CS-pg8" firstAttribute="trailing" secondItem="rZ2-Ab-TLm" secondAttribute="trailing" constant="66" id="UwT-Ea-EcE"/>
-                            <constraint firstItem="20W-9d-yqr" firstAttribute="top" secondItem="rZ2-Ab-TLm" secondAttribute="bottom" constant="115" id="VKw-GV-LRw"/>
+                            <constraint firstItem="HFa-FU-IdG" firstAttribute="leading" secondItem="axJ-CS-pg8" secondAttribute="leading" constant="92" id="TSo-9e-sRZ"/>
+                            <constraint firstItem="HFa-FU-IdG" firstAttribute="top" secondItem="t1e-lm-xBO" secondAttribute="bottom" constant="160.5" id="ZRI-rL-DQ9"/>
+                            <constraint firstItem="axJ-CS-pg8" firstAttribute="trailing" secondItem="HFa-FU-IdG" secondAttribute="trailing" constant="76" id="a5Z-SF-R1d"/>
+                            <constraint firstItem="t1e-lm-xBO" firstAttribute="top" secondItem="axJ-CS-pg8" secondAttribute="top" constant="10" id="beD-AC-6vp"/>
                             <constraint firstItem="axJ-CS-pg8" firstAttribute="bottom" secondItem="20W-9d-yqr" secondAttribute="bottom" constant="32" id="rLf-tN-3Xg"/>
+                            <constraint firstItem="rZ2-Ab-TLm" firstAttribute="top" secondItem="HFa-FU-IdG" secondAttribute="bottom" constant="29" id="rdr-ed-UkO"/>
                             <constraint firstAttribute="bottom" secondItem="W5Q-sz-BIu" secondAttribute="bottom" id="thq-h3-Nq8"/>
+                            <constraint firstItem="rZ2-Ab-TLm" firstAttribute="leading" secondItem="axJ-CS-pg8" secondAttribute="leading" constant="92" id="tx5-l6-lGw"/>
                             <constraint firstItem="20W-9d-yqr" firstAttribute="leading" secondItem="axJ-CS-pg8" secondAttribute="leading" id="uGV-Ks-inh"/>
-                            <constraint firstItem="t1e-lm-xBO" firstAttribute="top" secondItem="axJ-CS-pg8" secondAttribute="top" constant="28.5" id="wKe-gu-kNG"/>
+                            <constraint firstItem="20W-9d-yqr" firstAttribute="top" secondItem="rZ2-Ab-TLm" secondAttribute="bottom" constant="142" id="zmW-aQ-1Ak"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="zPW-dF-v9G"/>

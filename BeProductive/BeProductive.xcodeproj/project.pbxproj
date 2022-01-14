@@ -26,7 +26,6 @@
 		AF7AF4E62784E8400080DE6B /* BundleExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7AF4E52784E8400080DE6B /* BundleExtention.swift */; };
 		AF8808BF2791FE6D00235E28 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8808BE2791FE6D00235E28 /* TimerViewController.swift */; };
 		AFA7A7B02790B86F00E68693 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AFA7A7AF2790B86F00E68693 /* GoogleService-Info.plist */; };
-		AFC65E2127818D50004E110C /* NewRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC65E2027818D50004E110C /* NewRecordViewController.swift */; };
 		AFDB5FFE2779B5D500912D90 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDB5FFD2779B5D500912D90 /* User.swift */; };
 		AFDB60002779B5ED00912D90 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDB5FFF2779B5ED00912D90 /* Record.swift */; };
 		AFDB60022779B60500912D90 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDB60012779B60500912D90 /* Category.swift */; };
@@ -59,7 +58,6 @@
 		AF7AF4E52784E8400080DE6B /* BundleExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtention.swift; sourceTree = "<group>"; };
 		AF8808BE2791FE6D00235E28 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		AFA7A7AF2790B86F00E68693 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		AFC65E2027818D50004E110C /* NewRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecordViewController.swift; sourceTree = "<group>"; };
 		AFDB5FFD2779B5D500912D90 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AFDB5FFF2779B5ED00912D90 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		AFDB60012779B60500912D90 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 				AF55A222277AA940000BB436 /* HumburgerViewController.swift */,
 				AF5DC896277C0CCC00FFAE6B /* NewListViewController.swift */,
 				AF472E5727801D4C00615A1F /* RecordingsViewController.swift */,
-				AFC65E2027818D50004E110C /* NewRecordViewController.swift */,
 				AF8808BE2791FE6D00235E28 /* TimerViewController.swift */,
 			);
 			path = Controller;
@@ -276,7 +273,6 @@
 				AF55A221277A9C2E000BB436 /* HomeViewController.swift in Sources */,
 				AF5DC899277C137700FFAE6B /* ListsCollectionViewCell.swift in Sources */,
 				AFDB60182779F3A000912D90 /* ImageView.swift in Sources */,
-				AFC65E2127818D50004E110C /* NewRecordViewController.swift in Sources */,
 				AFDB60002779B5ED00912D90 /* Record.swift in Sources */,
 				AFDB5FFE2779B5D500912D90 /* User.swift in Sources */,
 				AFDC6CA4277C59FF00BE835B /* ListTableViewCell.swift in Sources */,

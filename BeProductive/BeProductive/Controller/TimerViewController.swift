@@ -40,7 +40,7 @@ class TimerViewController: UIViewController {
             sliderCollectionView.dataSource = self
         }
     }
-    var statments = ["        BE PRODUCTIVE","KEEP GOING","SUCCESS IS A DECISION","WORK ON YOU FOR YOU","IT'S GOOD DAY TO HAVE GOOD DAY ","DO IT FOR YOU NOT FOR THEM","DREAM. PLAN. DO.","IF NOT NOW , WHEN ?","NO RISK   NO STORY","IF YOU DREAM IT YOU CAN DO IT",""]
+    var statments = ["        BE PRODUCTIVE".localized,"KEEP GOING".localized,"SUCCESS IS A DECISION".localized,"WORK ON YOU FOR YOU".localized,"IT'S GOOD DAY TO HAVE GOOD DAY ".localized,"DO IT FOR YOU NOT FOR THEM".localized,"DREAM. PLAN. DO.".localized,"IF NOT NOW , WHEN ?".localized,"NO RISK   NO STORY".localized,"IF YOU DREAM IT YOU CAN DO IT".localized,""]
     var timer2 = Timer()
     var counter = 0
     
