@@ -213,7 +213,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sandGlass" translatesAutoresizingMaskIntoConstraints="NO" id="W5Q-sz-BIu">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sandGlass" translatesAutoresizingMaskIntoConstraints="NO" id="W5Q-sz-BIu">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="rZ2-Ab-TLm">
@@ -221,8 +221,15 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cL9-5b-c00">
                                         <rect key="frame" x="0.0" y="0.0" width="84.5" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="MtY-dI-AiJ"/>
+                                        </constraints>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain">
+                                        <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
+                                            <backgroundConfiguration key="background">
+                                                <color key="backgroundColor" systemColor="systemGray2Color"/>
+                                                <color key="strokeColor" systemColor="systemGray2Color"/>
+                                            </backgroundConfiguration>
                                             <attributedString key="attributedTitle">
                                                 <fragment content="START">
                                                     <attributes>
@@ -238,8 +245,15 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LKr-dj-uIl">
                                         <rect key="frame" x="124.5" y="0.0" width="84.5" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="ccj-zm-eUy"/>
+                                        </constraints>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain">
+                                        <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
+                                            <backgroundConfiguration key="background">
+                                                <color key="backgroundColor" systemColor="systemGray2Color"/>
+                                                <color key="strokeColor" systemColor="systemGray2Color"/>
+                                            </backgroundConfiguration>
                                             <attributedString key="attributedTitle">
                                                 <fragment content="RESET">
                                                     <attributes>
@@ -308,15 +322,22 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HFa-FU-IdG">
-                                <rect key="frame" x="92" y="234" width="207" height="76"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HFa-FU-IdG">
+                                <rect key="frame" x="86" y="234" width="219" height="76"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="76" id="yMH-if-AmE"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="56"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="54"/>
                                 <color key="textColor" name="textWhiteColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nBq-qH-X0Q">
+                                <rect key="frame" x="102" y="120" width="189" height="79"/>
+                                <color key="tintColor" name="textWhiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="79" id="Ehg-lb-fti"/>
+                                </constraints>
+                            </pickerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="axJ-CS-pg8"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -324,20 +345,23 @@
                             <constraint firstItem="axJ-CS-pg8" firstAttribute="trailing" secondItem="t1e-lm-xBO" secondAttribute="trailing" constant="41" id="1L5-CH-sbC"/>
                             <constraint firstAttribute="trailing" secondItem="W5Q-sz-BIu" secondAttribute="trailing" id="3vO-zw-Oou"/>
                             <constraint firstItem="axJ-CS-pg8" firstAttribute="trailing" secondItem="rZ2-Ab-TLm" secondAttribute="trailing" constant="74" id="4Rb-ZS-pFn"/>
+                            <constraint firstItem="nBq-qH-X0Q" firstAttribute="leading" secondItem="axJ-CS-pg8" secondAttribute="leading" constant="102" id="4jf-66-DQC"/>
                             <constraint firstItem="W5Q-sz-BIu" firstAttribute="top" secondItem="uLc-Yn-Kud" secondAttribute="top" id="9gY-XE-zl2"/>
                             <constraint firstItem="t1e-lm-xBO" firstAttribute="leading" secondItem="axJ-CS-pg8" secondAttribute="leading" constant="40" id="Cfi-d0-pgl"/>
                             <constraint firstItem="W5Q-sz-BIu" firstAttribute="leading" secondItem="uLc-Yn-Kud" secondAttribute="leading" id="E4j-RW-Xo5"/>
+                            <constraint firstItem="HFa-FU-IdG" firstAttribute="top" secondItem="nBq-qH-X0Q" secondAttribute="bottom" constant="35" id="Jej-1S-87u"/>
                             <constraint firstItem="20W-9d-yqr" firstAttribute="trailing" secondItem="axJ-CS-pg8" secondAttribute="trailing" id="JiB-WH-OjV"/>
-                            <constraint firstItem="HFa-FU-IdG" firstAttribute="leading" secondItem="axJ-CS-pg8" secondAttribute="leading" constant="92" id="TSo-9e-sRZ"/>
-                            <constraint firstItem="HFa-FU-IdG" firstAttribute="top" secondItem="t1e-lm-xBO" secondAttribute="bottom" constant="160.5" id="ZRI-rL-DQ9"/>
-                            <constraint firstItem="axJ-CS-pg8" firstAttribute="trailing" secondItem="HFa-FU-IdG" secondAttribute="trailing" constant="76" id="a5Z-SF-R1d"/>
-                            <constraint firstItem="t1e-lm-xBO" firstAttribute="top" relation="lessThanOrEqual" secondItem="axJ-CS-pg8" secondAttribute="top" constant="10" id="beD-AC-6vp"/>
+                            <constraint firstItem="HFa-FU-IdG" firstAttribute="leading" secondItem="axJ-CS-pg8" secondAttribute="leading" constant="86" id="TSo-9e-sRZ"/>
+                            <constraint firstItem="nBq-qH-X0Q" firstAttribute="top" secondItem="t1e-lm-xBO" secondAttribute="bottom" constant="46.5" id="X75-dW-VRi"/>
+                            <constraint firstItem="axJ-CS-pg8" firstAttribute="trailing" secondItem="HFa-FU-IdG" secondAttribute="trailing" constant="70" id="a5Z-SF-R1d"/>
+                            <constraint firstItem="t1e-lm-xBO" firstAttribute="top" secondItem="axJ-CS-pg8" secondAttribute="top" constant="10" id="beD-AC-6vp"/>
+                            <constraint firstItem="axJ-CS-pg8" firstAttribute="trailing" secondItem="nBq-qH-X0Q" secondAttribute="trailing" constant="84" id="nX9-6V-ek6"/>
                             <constraint firstItem="axJ-CS-pg8" firstAttribute="bottom" secondItem="20W-9d-yqr" secondAttribute="bottom" constant="32" id="rLf-tN-3Xg"/>
                             <constraint firstItem="rZ2-Ab-TLm" firstAttribute="top" secondItem="HFa-FU-IdG" secondAttribute="bottom" constant="29" id="rdr-ed-UkO"/>
                             <constraint firstAttribute="bottom" secondItem="W5Q-sz-BIu" secondAttribute="bottom" id="thq-h3-Nq8"/>
                             <constraint firstItem="rZ2-Ab-TLm" firstAttribute="leading" secondItem="axJ-CS-pg8" secondAttribute="leading" constant="92" id="tx5-l6-lGw"/>
                             <constraint firstItem="20W-9d-yqr" firstAttribute="leading" secondItem="axJ-CS-pg8" secondAttribute="leading" id="uGV-Ks-inh"/>
-                            <constraint firstItem="20W-9d-yqr" firstAttribute="top" secondItem="rZ2-Ab-TLm" secondAttribute="bottom" constant="142" id="zmW-aQ-1Ak"/>
+                            <constraint firstItem="20W-9d-yqr" firstAttribute="top" relation="greaterThanOrEqual" secondItem="rZ2-Ab-TLm" secondAttribute="bottom" constant="142" id="zmW-aQ-1Ak"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="zPW-dF-v9G"/>
@@ -347,11 +371,12 @@
                         <outlet property="startBTN" destination="cL9-5b-c00" id="KtU-zZ-9sM"/>
                         <outlet property="statrTimerLabel" destination="t1e-lm-xBO" id="sXo-NX-BWS"/>
                         <outlet property="timerLabel" destination="HFa-FU-IdG" id="2AW-5P-jPX"/>
+                        <outlet property="timerPicker" destination="nBq-qH-X0Q" id="H72-KL-H45"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kfu-Rw-L18" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4532" y="2115.2923538230884"/>
+            <point key="canvasLocation" x="4600.8000000000002" y="1994.7526236881561"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="62k-Rt-Q3m">
@@ -764,7 +789,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yCj-d6-Bmp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" name="bageColor"/>
+                        <color key="tintColor" name="textFieldColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -958,7 +983,7 @@
                                     <constraint firstAttribute="height" constant="31" id="RvD-ag-DrD"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Logout">
+                                <buttonConfiguration key="configuration" style="plain" title="Logout" cornerStyle="large">
                                     <backgroundConfiguration key="background">
                                         <color key="backgroundColor" name="registerAndLoginColor"/>
                                         <color key="strokeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1053,6 +1078,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wQU-rU-Uhp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="textFieldColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1072,6 +1098,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bSN-NX-ml5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="textFieldColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1105,9 +1132,6 @@
         </namedColor>
         <namedColor name="backgroundColor">
             <color red="0.92199999094009399" green="0.87800002098083496" blue="0.85500001907348633" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="bageColor">
-            <color red="0.10599999874830246" green="0.19599999487400055" blue="0.24300000071525574" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="darkBackgroundColor">
             <color red="0.7929999828338623" green="0.75499999523162842" blue="0.73400002717971802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

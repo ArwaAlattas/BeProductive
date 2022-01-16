@@ -23,10 +23,8 @@ class HumburgerViewController: UIViewController {
     
     @IBOutlet weak var userProfileImageView: UIImageView!{
         didSet{
-            userProfileImageView.layer.cornerRadius = 40
+            userProfileImageView.layer.cornerRadius = 20
             userProfileImageView.clipsToBounds = true
-            
-            
         }
     }
     @IBOutlet weak var mainBackgroundView: UIView!{

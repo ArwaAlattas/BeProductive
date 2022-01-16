@@ -33,8 +33,9 @@ class RegisterViewController: UIViewController {
     didSet{
 //        userImageView.layer.borderColor = UIColor.systemGreen.cgColor
 //        userImageView.layer.borderWidth = 3.0
-        userImageView.layer.cornerRadius = userImageView.bounds.height / 2
-        userImageView.layer.masksToBounds = true
+        userImageView.layer.cornerRadius = 90
+        userImageView.clipsToBounds = true
+//        userImageView.layer.masksToBounds = true
         let tabGesture = UITapGestureRecognizer(target: self, action: #selector(selectImage))
         userImageView.addGestureRecognizer(tabGesture)
     }}

@@ -11,9 +11,10 @@ class TimerViewController: UIViewController {
 
     
     var timer = Timer()
+    var hours = 0
     var secs = 59
-    var mins = 25
-    
+    var mins = 30
+    var row = 0
     
     @IBOutlet weak var resetBTN: UIButton!{
         didSet{
@@ -33,6 +34,13 @@ class TimerViewController: UIViewController {
     
     @IBOutlet weak var timerLabel: UILabel!
     
+    @IBOutlet weak var timerPicker: UIPickerView!{
+        didSet{
+            timerPicker.dataSource = self
+            timerPicker.delegate = self
+        }
+    }
+    
     
     @IBOutlet weak var sliderCollectionView: UICollectionView!{
         didSet{
@@ -45,14 +53,16 @@ class TimerViewController: UIViewController {
     var counter = 0
     
     
-    
-    
+    var times = ["30:00 minutes","1:00:00 hour"]
+    var namOfTime = ["minutes","hour"]
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         DispatchQueue.main.async {
             self.timer2 = Timer.scheduledTimer(timeInterval: 2.0 , target: self, selector: #selector(self.changeStatment), userInfo: nil, repeats: true)
         }
     }
+    
     @objc func changeStatment(){
         if counter < statments.count{
             let index = IndexPath.init(item: counter, section: 0)
@@ -75,7 +85,11 @@ class TimerViewController: UIViewController {
                   else if self.mins > 0 && self.secs == 0 {
                       self.mins = self.mins - 1
                       self.secs = 59
-                  }
+                  }  else if self.hours > 0 && self.mins == 0 && self.secs == 0 {
+                                      self.hours = self.hours - 1
+                                      self.mins = 59
+                                      self.secs = 59
+                                  }
    
                   self.updateLabel()
               })
@@ -84,24 +98,29 @@ class TimerViewController: UIViewController {
         }else{
             timer.invalidate()
             startBTN.setTitle("START".localized, for: .normal)
-            
         }
-        
     }
    
     @IBAction func resetTimer(_ sender: Any) {
-        timer.invalidate()
-         secs = 59
-         mins = 25
-        timerLabel.text = "25:00"
+        if row == 0 {
+            timer.invalidate()
+             secs = 59
+             mins = 30
+            hours = 0
+            timerLabel.text = "30:00"
+        }else{
+            timer.invalidate()
+             secs = 59
+             mins = 59
+            hours = 1
+            timerLabel.text = "1:00:00"
+        }
+       
     }
-    
     
     private func updateLabel() {
-
-        timerLabel.text = "\(mins):\(secs)"
+        timerLabel.text = "\(hours):\(mins):\(secs)"
     }
-    
 }
 extension TimerViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -132,5 +151,35 @@ extension TimerViewController:UICollectionViewDelegate,UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 1.0
+    }
+}
+extension TimerViewController:UIPickerViewDelegate,UIPickerViewDataSource{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+            return 2
+    
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+         return times[row]
+      
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if row == 0{
+            self.row = 0
+            hours = 0
+            mins = 30
+            secs = 59
+            timerLabel.text = "\(30):\(00)"
+        }else{
+            self.row = 1
+            hours = 1
+            mins = 59
+            secs = 59
+            timerLabel.text = "\(1):\(00):\(00)"
+            
+        }
     }
 }
