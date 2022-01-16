@@ -39,7 +39,7 @@ class HumburgerViewController: UIViewController {
     
     @IBOutlet weak var langsegment: UISegmentedControl!{
         didSet {
-//            langsegment.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.systemGray6], for: .normal)
+
             if let lang = UserDefaults.standard.string(forKey: "currentLanguage") {
                 switch lang {
                 case "ar":

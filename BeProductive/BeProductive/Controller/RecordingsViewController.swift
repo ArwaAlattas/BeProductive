@@ -64,31 +64,32 @@ class RecordingsViewController: UIViewController,UITextFieldDelegate {
                         self.recordsTabelView.beginUpdates()
                         if snapshot.documentChanges.count != 1 {
                             self.records.append(record)
-                            self.recordsTabelView.insertRows(at: [IndexPath(row: self.records.count-1, section: 0)], with: .automatic)
+                            self.recordsTabelView.insertRows(at: [IndexPath(row: self.records.count-1, section: 0)], with: .fade)
                                }else{
                             self.records.insert(record, at: 0)
-                            self.recordsTabelView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+                            self.recordsTabelView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
                         }
                         self.recordsTabelView.endUpdates()
                         print("ADD",recordData["audioUrl"]!)
-                        
                     case .modified:
                         let recordId = diff.document.documentID
                         if  let updateIndex = self.records.firstIndex(where: { $0.id == recordId }){
                             let newRecord = Record(dict: recordData, id: diff.document.documentID)
                             self.records[updateIndex] = newRecord
                             self.recordsTabelView.beginUpdates()
-                            self.recordsTabelView.deleteRows(at: [IndexPath(row: updateIndex, section: 0)], with: .left)
-                            self.recordsTabelView.insertRows(at: [IndexPath(row: updateIndex,section: 0)],with: .left)
+                            self.recordsTabelView.deleteRows(at: [IndexPath(row: updateIndex, section: 0)], with: .fade)
+                            self.recordsTabelView.insertRows(at: [IndexPath(row: updateIndex,section: 0)],with: .fade)
                             self.recordsTabelView.endUpdates()
+                            self.recordsTabelView.reloadData()
                         }
                     case .removed:
                         let recordId = diff.document.documentID
                         if let deletIndex = self.records.firstIndex(where: {$0.id == recordId}){
                             self.records.remove(at: deletIndex)
                             self.recordsTabelView.beginUpdates()
-                            self.recordsTabelView.deleteRows(at: [IndexPath(row: deletIndex,section: 0)], with: .automatic)
+                            self.recordsTabelView.deleteRows(at: [IndexPath(row: deletIndex,section: 0)], with: .fade)
                             self.recordsTabelView.endUpdates()
+                            self.recordsTabelView.reloadData()
                         }
                     }
                 }

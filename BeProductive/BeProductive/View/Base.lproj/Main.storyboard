@@ -25,8 +25,8 @@
                                     <constraint firstAttribute="width" constant="375" id="zz4-Bo-Ti1"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="NsK-tp-nXQ">
-                                <rect key="frame" x="117" y="535" width="140" height="84"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="NsK-tp-nXQ">
+                                <rect key="frame" x="117" y="540" width="140" height="79"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQF-hH-bLm">
                                         <rect key="frame" x="0.0" y="0.0" width="140" height="32"/>
@@ -47,7 +47,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b1p-1L-iUJ">
-                                        <rect key="frame" x="0.0" y="52" width="140" height="32"/>
+                                        <rect key="frame" x="0.0" y="47" width="140" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="tt4-iD-u5G"/>
                                         </constraints>
@@ -65,21 +65,41 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="wn1-mA-l3T">
+                                <rect key="frame" x="234" y="52" width="125" height="32"/>
+                                <color key="backgroundColor" name="registerAndLoginColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="kMG-nX-bgO"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="EN"/>
+                                    <segment title="AR"/>
+                                </segments>
+                                <color key="tintColor" name="textWhiteColor"/>
+                                <connections>
+                                    <action selector="changeLanguageSegment:" destination="BYZ-38-t0r" eventType="valueChanged" id="ubL-AJ-OMt"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NsK-tp-nXQ" secondAttribute="trailing" constant="118" id="E8d-Cr-Rkp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="NsK-tp-nXQ" secondAttribute="bottom" constant="48" id="FIZ-Ci-bQy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wn1-mA-l3T" secondAttribute="trailing" constant="16" id="Gkx-NO-fPU"/>
+                            <constraint firstItem="wn1-mA-l3T" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="234" id="UxT-j7-o8g"/>
                             <constraint firstItem="nxK-JQ-caG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="V9K-6N-81K"/>
                             <constraint firstItem="nxK-JQ-caG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="WyY-9j-UET"/>
                             <constraint firstItem="NsK-tp-nXQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="117" id="Zt6-Ab-tUv"/>
                             <constraint firstItem="NsK-tp-nXQ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="nxK-JQ-caG" secondAttribute="bottom" constant="70" id="aaj-a3-aMk"/>
+                            <constraint firstItem="NsK-tp-nXQ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="wn1-mA-l3T" secondAttribute="bottom" constant="452" id="bmK-ST-loF"/>
                             <constraint firstItem="nxK-JQ-caG" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="gvP-4L-jen"/>
+                            <constraint firstItem="wn1-mA-l3T" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="x5p-FY-zl2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7aM-pl-e6I"/>
                     <connections>
+                        <outlet property="languageSegment" destination="wn1-mA-l3T" id="8Cz-Sg-EYw"/>
                         <outlet property="loginBTN" destination="b1p-1L-iUJ" id="PH1-aR-Otl"/>
                         <outlet property="registerBTN" destination="JQF-hH-bLm" id="FVd-6O-Frn"/>
                     </connections>
@@ -311,7 +331,7 @@
                             <constraint firstItem="HFa-FU-IdG" firstAttribute="leading" secondItem="axJ-CS-pg8" secondAttribute="leading" constant="92" id="TSo-9e-sRZ"/>
                             <constraint firstItem="HFa-FU-IdG" firstAttribute="top" secondItem="t1e-lm-xBO" secondAttribute="bottom" constant="160.5" id="ZRI-rL-DQ9"/>
                             <constraint firstItem="axJ-CS-pg8" firstAttribute="trailing" secondItem="HFa-FU-IdG" secondAttribute="trailing" constant="76" id="a5Z-SF-R1d"/>
-                            <constraint firstItem="t1e-lm-xBO" firstAttribute="top" secondItem="axJ-CS-pg8" secondAttribute="top" constant="10" id="beD-AC-6vp"/>
+                            <constraint firstItem="t1e-lm-xBO" firstAttribute="top" relation="lessThanOrEqual" secondItem="axJ-CS-pg8" secondAttribute="top" constant="10" id="beD-AC-6vp"/>
                             <constraint firstItem="axJ-CS-pg8" firstAttribute="bottom" secondItem="20W-9d-yqr" secondAttribute="bottom" constant="32" id="rLf-tN-3Xg"/>
                             <constraint firstItem="rZ2-Ab-TLm" firstAttribute="top" secondItem="HFa-FU-IdG" secondAttribute="bottom" constant="29" id="rdr-ed-UkO"/>
                             <constraint firstAttribute="bottom" secondItem="W5Q-sz-BIu" secondAttribute="bottom" id="thq-h3-Nq8"/>
@@ -928,7 +948,7 @@
                                     <constraint firstAttribute="bottom" secondItem="ao0-Vv-jsp" secondAttribute="bottom" constant="27.5" id="gDj-49-zL2"/>
                                     <constraint firstItem="MHh-XZ-4Vp" firstAttribute="leading" secondItem="aUI-fx-oTF" secondAttribute="leading" constant="70" id="hEq-B9-NGh"/>
                                     <constraint firstItem="ao0-Vv-jsp" firstAttribute="leading" secondItem="aUI-fx-oTF" secondAttribute="leading" constant="34" id="o79-ax-LRY"/>
-                                    <constraint firstItem="MHh-XZ-4Vp" firstAttribute="top" secondItem="aUI-fx-oTF" secondAttribute="top" constant="85" id="tBv-AX-6jt"/>
+                                    <constraint firstItem="MHh-XZ-4Vp" firstAttribute="top" relation="lessThanOrEqual" secondItem="aUI-fx-oTF" secondAttribute="top" constant="85" id="tBv-AX-6jt"/>
                                     <constraint firstAttribute="trailing" secondItem="MHh-XZ-4Vp" secondAttribute="trailing" constant="70" id="z4z-aU-org"/>
                                 </constraints>
                             </view>
