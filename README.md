@@ -1,4 +1,42 @@
 # BeProductive
-<img width="753" alt="ERD of may APP (BeProductive)" src="https://user-images.githubusercontent.com/92253880/147451140-1524716e-1f9d-4193-9d7d-b90cd28ab4ca.png">
-<img width="1004" alt="wirframe of my APP(BeProductive)" src="https://user-images.githubusercontent.com/92253880/147451197-56d04f75-92d8-44d4-9da6-0b827ee5c324.png">
-<img width="713" alt="user Stories" src="https://user-images.githubusercontent.com/92253880/147451220-a187c855-661b-4799-8863-be89973b78d3.png">
+
+## Description
+- An application to organize tasks and increase productivity, 
+ by using audio recordings, to facilitate their recording and preservation
+
+
+
+
+## Demo
+
+![](lightEnglish.gif)
+![](darkArabic.gif)
+
+
+## user Stories 
+
+- As user I can register
+- As user I can sign in
+- As user I can add new lists
+- As user I can delete lists
+- As user I can add new task by voice notes
+- As user I can update the title of the audio and delete it 
+- As user I can start countdown timer to focus on any thing
+
+
+## Framework
+
+- UIKit
+- Firebase
+- Foundation
+- IQKeyboardManagerSwift
+- AVFoundation
+
+
+## ERD
+
+![](ERD.png)
+
+## Wireframe
+
+![](Wireframe.png)
