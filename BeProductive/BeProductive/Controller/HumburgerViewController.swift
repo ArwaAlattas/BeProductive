@@ -100,11 +100,16 @@ class HumburgerViewController: UIViewController {
                             if let userSnapshot = userSnapshot,
                             let userData = userSnapshot.data(){
                                 let user = User(dict:userData)
-                                DispatchQueue.main.async {
-                                    self.userProfileImageView.loadImageUsingCache(with: user.imageUrl)
-                                    self.userNameLabel.text = user.name
-                                    self.userEmailLabel.text = user.email
+                               
+                                    DispatchQueue.main.async {
+                                        self.userProfileImageView.loadImageUsingCache(with: user.imageUrl)
+                                        self.userNameLabel.text = user.name
+                                        self.userEmailLabel.text = user.email
                                 }
+                                
+                               
+                                
+                            }
                                   
                         }
                     }
@@ -112,7 +117,7 @@ class HumburgerViewController: UIViewController {
                  }
               }
             }
-    }
+   
     @IBAction func handleLogout(_ sender: Any) {
         do {
             try Auth.auth().signOut()

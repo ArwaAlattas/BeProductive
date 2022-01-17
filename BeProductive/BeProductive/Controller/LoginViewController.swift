@@ -42,15 +42,16 @@ class LoginViewController: UIViewController {
         
         userPasswordTextField.rightView = eyePass
         userPasswordTextField.rightViewMode = .whileEditing
+        userPasswordTextField.isSecureTextEntry = true
     }
     @IBAction func eyePass(_ sender: UIButton) {
         userPasswordTextField.isSecureTextEntry.toggle()
                if  userPasswordTextField.isSecureTextEntry {
-                   if let image = UIImage(systemName: "eye.fill") {
+                   if let image = UIImage(systemName: "eye.slash.fill") {
                        sender.setImage(image, for: .normal)
                    }
                } else {
-                   if let image = UIImage(systemName: "eye.slash.fill"){
+                   if let image = UIImage(systemName: "eye.fill"){
                        sender.setImage(image, for: .normal)
                    }
     }

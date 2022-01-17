@@ -171,7 +171,7 @@
                                 <rect key="frame" x="324" y="332" width="46" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="eye" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="eye.slash.fill" catalog="system"/>
                                 <connections>
                                     <action selector="eyePass:" destination="XEX-EH-f0x" eventType="touchUpInside" id="TAV-7u-NVX"/>
                                 </connections>
@@ -213,7 +213,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sandGlass" translatesAutoresizingMaskIntoConstraints="NO" id="W5Q-sz-BIu">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sandGlass" translatesAutoresizingMaskIntoConstraints="NO" id="W5Q-sz-BIu">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="rZ2-Ab-TLm">
@@ -386,7 +386,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" systemColor="systemGray2Color"/>
+                        <color key="barTintColor" red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="0.49782530199579833" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" name="registerAndLoginColor"/>
                     </tabBar>
                     <connections>
                         <segue destination="GkG-rp-8g8" kind="relationship" relationship="viewControllers" id="BRx-SE-avC"/>
@@ -870,7 +871,7 @@
                                 <rect key="frame" x="331" y="414" width="40" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="eye" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="eye.slash.fill" catalog="system"/>
                                 <connections>
                                     <action selector="eyePass:" destination="uGT-6x-cP3" eventType="touchUpInside" id="rOf-7Q-e4C"/>
                                 </connections>
@@ -879,7 +880,7 @@
                                 <rect key="frame" x="330" y="468" width="45" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="eye" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="eye.slash.fill" catalog="system"/>
                                 <connections>
                                     <action selector="eyeConfirmPass:" destination="uGT-6x-cP3" eventType="touchUpInside" id="SDS-gR-xee"/>
                                 </connections>
@@ -956,7 +957,7 @@
                                         <color key="textColor" name="BlackColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MHh-XZ-4Vp">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MHh-XZ-4Vp">
                                         <rect key="frame" x="70" y="85" width="140" height="91"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="91" id="Jqf-DC-YZ8"/>
@@ -970,10 +971,10 @@
                                     <constraint firstItem="ao0-Vv-jsp" firstAttribute="top" secondItem="MHh-XZ-4Vp" secondAttribute="bottom" constant="24" id="7nt-Up-fZ1"/>
                                     <constraint firstAttribute="height" constant="260" id="Hej-G1-1eg"/>
                                     <constraint firstAttribute="width" constant="280" id="JfP-og-BWr"/>
-                                    <constraint firstAttribute="bottom" secondItem="ao0-Vv-jsp" secondAttribute="bottom" constant="27.5" id="gDj-49-zL2"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ao0-Vv-jsp" secondAttribute="bottom" constant="27.5" id="gDj-49-zL2"/>
                                     <constraint firstItem="MHh-XZ-4Vp" firstAttribute="leading" secondItem="aUI-fx-oTF" secondAttribute="leading" constant="70" id="hEq-B9-NGh"/>
                                     <constraint firstItem="ao0-Vv-jsp" firstAttribute="leading" secondItem="aUI-fx-oTF" secondAttribute="leading" constant="34" id="o79-ax-LRY"/>
-                                    <constraint firstItem="MHh-XZ-4Vp" firstAttribute="top" relation="lessThanOrEqual" secondItem="aUI-fx-oTF" secondAttribute="top" constant="85" id="tBv-AX-6jt"/>
+                                    <constraint firstItem="MHh-XZ-4Vp" firstAttribute="top" secondItem="aUI-fx-oTF" secondAttribute="top" constant="85" id="tBv-AX-6jt"/>
                                     <constraint firstAttribute="trailing" secondItem="MHh-XZ-4Vp" secondAttribute="trailing" constant="70" id="z4z-aU-org"/>
                                 </constraints>
                             </view>
@@ -1117,7 +1118,7 @@
     <resources>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="email" width="512" height="512"/>
-        <image name="eye" catalog="system" width="128" height="81"/>
+        <image name="eye.slash.fill" catalog="system" width="128" height="82"/>
         <image name="hamburgerIcon" width="33.333332061767578" height="33.333332061767578"/>
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="language" width="512" height="512"/>

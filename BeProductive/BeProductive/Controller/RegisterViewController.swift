@@ -78,20 +78,20 @@ class RegisterViewController: UIViewController {
         
         userPasswordTextField.rightView = eyePassword
         userPasswordTextField.rightViewMode = .whileEditing
-                
+        userPasswordTextField.isSecureTextEntry = true
         confirmPasswordTextField.rightView = eyeConfirmPassword
         confirmPasswordTextField.rightViewMode = .whileEditing
-        
+        confirmPasswordTextField.isSecureTextEntry = true
     }
     
     @IBAction func eyePass(_ sender: UIButton) {
         userPasswordTextField.isSecureTextEntry.toggle()
                if  userPasswordTextField.isSecureTextEntry {
-                   if let image = UIImage(systemName: "eye.fill") {
+                   if let image = UIImage(systemName: "eye.slash.fill") {
                        sender.setImage(image, for: .normal)
                    }
                } else {
-                   if let image = UIImage(systemName: "eye.slash.fill"){
+                   if let image = UIImage(systemName: "eye.fill"){
                        sender.setImage(image, for: .normal)
                    }
                }
@@ -99,11 +99,11 @@ class RegisterViewController: UIViewController {
     @IBAction func eyeConfirmPass(_ sender: UIButton) {
         confirmPasswordTextField.isSecureTextEntry.toggle()
                if confirmPasswordTextField.isSecureTextEntry {
-                   if let image = UIImage(systemName: "eye.fill") {
+                   if let image = UIImage(systemName: "eye.slash.fill") {
                        sender.setImage(image, for: .normal)
                    }
                } else {
-                   if let image = UIImage(systemName: "eye.slash.fill"){
+                   if let image = UIImage(systemName: "eye.fill"){
                        sender.setImage(image, for: .normal)
                    }
                }
